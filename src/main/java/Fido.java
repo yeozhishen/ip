@@ -1,18 +1,18 @@
 import java.util.Scanner;
 public class Fido {
     TaskManager FidoTaskManager;
+    Parser inputParser;
 
     public Fido() {
         this.FidoTaskManager = new TaskManager();
+        this.inputParser = new Parser();
     }
 
     public void run() {
-        String inputLine;
-        Scanner in = new Scanner(System.in);
         Greet();
         mainLoop: while(true) {
-            inputLine = in.nextLine();
-            String command = inputLine.split(" ")[0];
+            inputParser.collectUserInput();
+            String command = inputParser.getUserInputCommand();
             switch (command) {
             case "bye":
                 break mainLoop;
@@ -20,7 +20,7 @@ public class Fido {
                 FidoTaskManager.printTaskList();
                 break;
             default:
-                FidoTaskManager.addTask(inputLine);
+                FidoTaskManager.addTask(inputParser.getUserInputString());
                 break;
             }
         }
@@ -44,15 +44,15 @@ public class Fido {
         System.out.println(line);
     }
     private void echoInput() {
-        String inputLine;
-        Scanner in = new Scanner(System.in);
+        String inputString;
         while (true) {
-            inputLine = in.nextLine();
+            inputParser.collectUserInput();
+            inputString = inputParser.getUserInputString();
             printlnHorizontalLine();
-            if (inputLine.equals("bye")) {
+            if (inputString.equals("bye")) {
                 return;
             }
-            System.out.println(inputLine);
+            System.out.println(inputString);
             printlnHorizontalLine();
         }
     }
