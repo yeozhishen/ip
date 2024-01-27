@@ -1,5 +1,6 @@
 public class Task {
-    private String task;
+    protected String task;
+    protected boolean isDone;
 
     public Task(String task) {
         this.task = task;
@@ -10,7 +11,18 @@ public class Task {
     }
 
     public void printTask(){
+        System.out.print("[" + getStatusIcon() + "] ");
         System.out.print(task);
+   }
+
+   private String getStatusIcon() {
+        return (isDone ? "X" : " ");
+   }
+   public void setDone(){
+        isDone = true;
+   }
+   public void setNotDone(){
+        isDone = false;
    }
 }
 

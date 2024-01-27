@@ -1,4 +1,3 @@
-import java.util.Scanner;
 public class Fido {
     TaskManager FidoTaskManager;
     Parser inputParser;
@@ -19,13 +18,18 @@ public class Fido {
             case "list":
                 FidoTaskManager.printTaskList();
                 break;
+            case "mark":
+                handleTaskMarking();
+                break;
+            case "unmark":
+                handleUnmarkingTask();
+                break;
             default:
                 FidoTaskManager.addTask(inputParser.getUserInputString());
                 break;
             }
         }
         Exit();
-
     }
     private void Greet() {
         String greeting = "Hello! I'm Fido\n"
@@ -56,8 +60,20 @@ public class Fido {
             printlnHorizontalLine();
         }
     }
-    public static void main(String [] args){
-        Fido chatbot = new Fido();
-        chatbot.run();
+    private void handleTaskMarking() {
+        try {
+            int stdoutTaskIndex = inputParser.getTaskIndexForMarking();
+            FidoTaskManager.markTaskAsDone(stdoutTaskIndex);
+        } catch (Exception e){
+            System.out.println("enter only 1 integer argument within range after the mark command");
+        }
+    }
+    private void handleUnmarkingTask() {
+        try {
+            int stdoutTaskIndex = inputParser.getTaskIndexForMarking();
+            FidoTaskManager.unmarkTask(stdoutTaskIndex);
+        } catch (Exception e) {
+            System.out.println("enter only 1 integer argument within range after the mark command");
+        }
     }
 }

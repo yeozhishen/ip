@@ -18,6 +18,30 @@ public class TaskManager {
         }
         printlnHorizontalLine();
     }
+    public void markTaskAsDone(int stdoutTaskIndex) throws IndexOutOfBoundsException {
+        if( stdoutTaskIndex <= 0 || stdoutTaskIndex > numTasks) {
+            throw new IndexOutOfBoundsException();
+        }
+        Task taskToMark = taskList.get(stdoutTaskIndex - 1);
+        taskToMark.setDone();
+        printlnHorizontalLine();
+        System.out.println("uwu  marked the task as done: ");
+        taskToMark.printTask();
+        System.out.println();
+        printlnHorizontalLine();
+    }
+    public void unmarkTask(int stdoutTaskIndex) throws IndexOutOfBoundsException {
+        if( stdoutTaskIndex <= 0 || stdoutTaskIndex > numTasks) {
+            throw new IndexOutOfBoundsException();
+        }
+        Task taskToMark = taskList.get(stdoutTaskIndex - 1);
+        taskToMark.setNotDone();
+        printlnHorizontalLine();
+        System.out.println(":( marked the task as not done yet: ");
+        taskToMark.printTask();
+        System.out.println();
+        printlnHorizontalLine();
+    }
     private void printlnHorizontalLine() {
         String line = "--------------------------------------";
         System.out.println(line);
