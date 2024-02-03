@@ -22,7 +22,7 @@ public class TaskManager {
         return listOfTasks.toString();
     }
     public String markTaskAsDone(int stdoutTaskIndex) throws IndexOutOfBoundsException {
-        if( stdoutTaskIndex <= 0 || stdoutTaskIndex > numTasks) {
+        if(isIndexOutOfRange(stdoutTaskIndex)) {
             throw new IndexOutOfBoundsException();
         }
         Task taskToMark = taskList.get(stdoutTaskIndex - 1);
@@ -30,12 +30,18 @@ public class TaskManager {
         return TASK_DONE_STRING + taskToMark.toString();
     }
     public String unmarkTask(int stdoutTaskIndex) throws IndexOutOfBoundsException {
-        if( stdoutTaskIndex <= 0 || stdoutTaskIndex > numTasks) {
+        if(isIndexOutOfRange(stdoutTaskIndex)) {
             throw new IndexOutOfBoundsException();
         }
         Task taskToMark = taskList.get(stdoutTaskIndex - 1);
         taskToMark.setNotDone();
         return TASK_NOT_DONE_STRING + taskToMark.toString();
+    }
+    private boolean isIndexOutOfRange(int index){
+        if (index <= 0 || index > numTasks){
+            return true;
+        }
+        return false;
     }
     public String addTask(String task) {
         Task newTask = new Task(task);
