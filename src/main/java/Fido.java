@@ -1,11 +1,4 @@
 public class Fido {
-    private static final String COMMAND_ADD_WORD = "add";
-    private static final String COMMAND_LIST_WORD = "list";
-    private static final String COMMAND_EXIT_WORD = "bye";
-    private static final String COMMAND_MARK_WORD = "mark";
-    private static final String COMMAND_UNMARK_WORD = "unmark";
-    private static final String INVALID_MARK_COMMAND_STRING = "enter only 1 integer argument within range after the mark/unmark command";
-    private static final String INVALID_COMMAND_STRING = "invalid command!";
     TaskManager FidoTaskManager;
     Parser inputParser;
     UserInterface userInterface;
@@ -23,19 +16,20 @@ public class Fido {
                 String outputMessage = processInputCommand(command);
                 userInterface.printMessage(outputMessage);
             } catch (IllegalArgumentException e) {
-                userInterface.printMessage(INVALID_COMMAND_STRING);
+                userInterface.printMessage(COMMANDS.INVALID_COMMAND.string);
             }
         }
     }
     private String processInputCommand(String command){
-        switch (command) {
-        case COMMAND_EXIT_WORD:
+        COMMANDS CommandEnum = COMMANDS.getCommandEnumeration(command);
+        switch (CommandEnum) {
+        case EXIT:
             Exit();
-        case COMMAND_LIST_WORD:
+        case LIST:
             return FidoTaskManager.getTaskList();
-        case COMMAND_MARK_WORD:
+        case MARK:
             return handleTaskMarking();
-        case COMMAND_UNMARK_WORD:
+        case UNMARK:
             return handleUnmarkingTask();
         default:
             return FidoTaskManager.addTask(inputParser.getUserInputString());
@@ -45,21 +39,16 @@ public class Fido {
         userInterface.printExitMessage();
         System.exit(0);
     }
-    private void printlnHorizontalLine() {
-        String line = "--------------------------------------";
-        System.out.println(line);
-    }
+
     private void echoInput() {
         String inputString;
         while (true) {
             inputParser.collectUserInput();
             inputString = inputParser.getUserInputString();
-            printlnHorizontalLine();
             if (inputString.equals("bye")) {
                 return;
             }
             System.out.println(inputString);
-            printlnHorizontalLine();
         }
     }
     private String handleTaskMarking() {
@@ -67,7 +56,7 @@ public class Fido {
             int stdoutTaskIndex = inputParser.getTaskIndexForMarking();
             return FidoTaskManager.markTaskAsDone(stdoutTaskIndex);
         } catch (Exception e){
-            return INVALID_MARK_COMMAND_STRING;
+            return COMMANDS.INVALID_MARK_COMMAND.string;
         }
     }
     private String handleUnmarkingTask() {
@@ -75,7 +64,7 @@ public class Fido {
             int stdoutTaskIndex = inputParser.getTaskIndexForMarking();
             return FidoTaskManager.unmarkTask(stdoutTaskIndex);
         } catch (Exception e) {
-            return INVALID_MARK_COMMAND_STRING;
+            return COMMANDS.INVALID_MARK_COMMAND.string;
         }
     }
 }
