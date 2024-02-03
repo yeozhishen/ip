@@ -1,6 +1,9 @@
 import java.util.LinkedList;
 public class TaskManager {
     private LinkedList<Task> taskList;
+    private static final String TASK_DONE_STRING = "uwu  marked the task as done: ";
+    private static final String TASK_NOT_DONE_STRING = ":( marked the task as not done yet: ";
+    private static final String TASK_ADDED_STRING = "added: ";
     private int numTasks;
 
     public TaskManager() {
@@ -18,40 +21,40 @@ public class TaskManager {
         }
         printlnHorizontalLine();
     }
-    public void markTaskAsDone(int stdoutTaskIndex) throws IndexOutOfBoundsException {
+    public String getTaskList(){
+        StringBuilder listOfTasks = new StringBuilder();
+        for(int i = 0; i < numTasks; i++) {
+            Task currentTask = taskList.get(i);
+            String lineOfTask = Integer.toString(i + 1) +
+                    ". " + currentTask.toString() + System.lineSeparator();
+            listOfTasks.append(lineOfTask);
+        }
+        return listOfTasks.toString();
+    }
+    public String markTaskAsDone(int stdoutTaskIndex) throws IndexOutOfBoundsException {
         if( stdoutTaskIndex <= 0 || stdoutTaskIndex > numTasks) {
             throw new IndexOutOfBoundsException();
         }
         Task taskToMark = taskList.get(stdoutTaskIndex - 1);
         taskToMark.setDone();
-        printlnHorizontalLine();
-        System.out.println("uwu  marked the task as done: ");
-        taskToMark.printTask();
-        System.out.println();
-        printlnHorizontalLine();
+        return TASK_DONE_STRING + taskToMark.toString();
     }
-    public void unmarkTask(int stdoutTaskIndex) throws IndexOutOfBoundsException {
+    public String unmarkTask(int stdoutTaskIndex) throws IndexOutOfBoundsException {
         if( stdoutTaskIndex <= 0 || stdoutTaskIndex > numTasks) {
             throw new IndexOutOfBoundsException();
         }
         Task taskToMark = taskList.get(stdoutTaskIndex - 1);
         taskToMark.setNotDone();
-        printlnHorizontalLine();
-        System.out.println(":( marked the task as not done yet: ");
-        taskToMark.printTask();
-        System.out.println();
-        printlnHorizontalLine();
+        return TASK_NOT_DONE_STRING + taskToMark.toString();
     }
     private void printlnHorizontalLine() {
         String line = "--------------------------------------";
         System.out.println(line);
     }
-    public void addTask(String task) {
+    public String addTask(String task) {
         Task newTask = new Task(task);
         taskList.add(newTask);
-        printlnHorizontalLine();
-        System.out.println("added: " + task);
-        printlnHorizontalLine();
         numTasks++;
+        return TASK_ADDED_STRING + task;
     }
 }

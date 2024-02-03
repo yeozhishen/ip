@@ -10,11 +10,14 @@ public class Task {
         return task;
     }
 
-    public void printTask(){
+    public void printTask() {
         System.out.print("[" + getStatusIcon() + "] ");
         System.out.print(task);
    }
 
+   public String toString() {
+        return "[" + getStatusIcon() + "] " + task;
+   }
    private String getStatusIcon() {
         return (isDone ? "X" : " ");
    }

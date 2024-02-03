@@ -1,47 +1,44 @@
 public class Fido {
+    private static final String COMMAND_ADD_WORD = "add";
+    private static final String COMMAND_LIST_WORD = "list";
+    private static final String COMMAND_EXIT_WORD = "bye";
+    private static final String COMMAND_MARK_WORD = "mark";
+    private static final String COMMAND_UNMARK_WORD = "unmark";
+    private static final String INVALID_COMMAND_STRING = "enter only 1 integer argument within range after the mark command";
     TaskManager FidoTaskManager;
     Parser inputParser;
-
+    UserInterface userInterface;
     public Fido() {
         this.FidoTaskManager = new TaskManager();
         this.inputParser = new Parser();
+        this.userInterface = new UserInterface();
     }
 
     public void run() {
-        Greet();
-        mainLoop: while(true) {
+        while(true) {
             inputParser.collectUserInput();
             String command = inputParser.getUserInputCommand();
-            switch (command) {
-            case "bye":
-                break mainLoop;
-            case "list":
-                FidoTaskManager.printTaskList();
-                break;
-            case "mark":
-                handleTaskMarking();
-                break;
-            case "unmark":
-                handleUnmarkingTask();
-                break;
-            default:
-                FidoTaskManager.addTask(inputParser.getUserInputString());
-                break;
-            }
+            String outputMessage = processInputCommand(command);
+            userInterface.printMessage(outputMessage);
         }
-        Exit();
     }
-    private void Greet() {
-        String greeting = "Hello! I'm Fido\n"
-                + "What can I do for you?";
-        printlnHorizontalLine();
-        System.out.println(greeting);
-        printlnHorizontalLine();
+    private String processInputCommand(String command){
+        switch (command) {
+        case COMMAND_EXIT_WORD:
+            Exit();
+        case COMMAND_LIST_WORD:
+            return FidoTaskManager.getTaskList();
+        case COMMAND_MARK_WORD:
+            return handleTaskMarking();
+        case COMMAND_UNMARK_WORD:
+            return handleUnmarkingTask();
+        default:
+            return FidoTaskManager.addTask(inputParser.getUserInputString());
+        }
     }
     private void Exit() {
-        String exitString = "Bye. Hope to see you again soon!";
-        System.out.println(exitString);
-        printlnHorizontalLine();
+        userInterface.printExitMessage();
+        System.exit(0);
     }
     private void printlnHorizontalLine() {
         String line = "--------------------------------------";
@@ -60,20 +57,20 @@ public class Fido {
             printlnHorizontalLine();
         }
     }
-    private void handleTaskMarking() {
+    private String handleTaskMarking() {
         try {
             int stdoutTaskIndex = inputParser.getTaskIndexForMarking();
-            FidoTaskManager.markTaskAsDone(stdoutTaskIndex);
+            return FidoTaskManager.markTaskAsDone(stdoutTaskIndex);
         } catch (Exception e){
-            System.out.println("enter only 1 integer argument within range after the mark command");
+            return INVALID_COMMAND_STRING;
         }
     }
-    private void handleUnmarkingTask() {
+    private String handleUnmarkingTask() {
         try {
             int stdoutTaskIndex = inputParser.getTaskIndexForMarking();
-            FidoTaskManager.unmarkTask(stdoutTaskIndex);
+            return FidoTaskManager.unmarkTask(stdoutTaskIndex);
         } catch (Exception e) {
-            System.out.println("enter only 1 integer argument within range after the mark command");
+            return INVALID_COMMAND_STRING;
         }
     }
 }
