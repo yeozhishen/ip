@@ -43,10 +43,12 @@ public class TaskManager {
         }
         return false;
     }
-    public String addTask(String task) {
-        Task newTask = new Task(task);
-        taskList.add(newTask);
+    public String addTask(Task task) {
+        taskList.add(task);
         numTasks++;
-        return TASK_ADDED_STRING + task;
+        String tasksInList = "Now you have " + numTasks + " in the list";
+        return TASK_ADDED_STRING + task.toString()
+                + System.lineSeparator() + tasksInList;
     }
+
 }

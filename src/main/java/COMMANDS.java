@@ -1,6 +1,8 @@
 public enum COMMANDS {
     LIST("list"),
     TODO("todo"),
+    DEADLINE("deadline"),
+    EVENT("event"),
     EXIT("bye"),
     MARK("mark"),
     UNMARK("unmark"),
