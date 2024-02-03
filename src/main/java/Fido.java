@@ -1,9 +1,9 @@
 public class Fido {
-    TaskManager FidoTaskManager;
+    TaskManager fidoTaskManager;
     Parser inputParser;
     UserInterface userInterface;
     public Fido() {
-        this.FidoTaskManager = new TaskManager();
+        this.fidoTaskManager = new TaskManager();
         this.inputParser = new Parser();
         this.userInterface = new UserInterface();
     }
@@ -16,7 +16,7 @@ public class Fido {
                 String outputMessage = processInputCommand(command);
                 userInterface.printMessage(outputMessage);
             } catch (IllegalArgumentException e) {
-                userInterface.printMessage(COMMANDS.INVALID_COMMAND.string);
+                userInterface.printMessage(COMMANDS.INVALID_COMMAND.string + e.getMessage());
             }
         }
     }
@@ -26,7 +26,7 @@ public class Fido {
         case EXIT:
             Exit();
         case LIST:
-            return FidoTaskManager.getTaskList();
+            return fidoTaskManager.getTaskList();
         case MARK:
             return handleTaskMarking();
         case UNMARK:
@@ -50,24 +50,24 @@ public class Fido {
             throw new IllegalArgumentException("invalid Todo");
         }
         String taskDescription = inputParser.getTaskDescription();
-        return FidoTaskManager.addTask(new Todo(taskDescription));
+        return fidoTaskManager.addTask(new Todo(taskDescription));
     }
     private String addDeadline() throws IllegalArgumentException {
         if(!inputParser.isValidDeadline()) {
             throw new IllegalArgumentException("invalid deadline");
         }
-        String byString = inputParser.getStringAfterKeywordUntilDelimiters(PARSER_REGEX.BY);
+        String byString = inputParser.getStringAfterKeywordUntilNextKeyword(PARSER_REGEX.BY);
         String taskDescription = inputParser.getTaskDescription();
-        return FidoTaskManager.addTask(new Deadline(taskDescription, byString));
+        return fidoTaskManager.addTask(new Deadline(taskDescription, byString));
     }
     private String addEvent() throws IllegalArgumentException {
         if(!inputParser.isValidEvent()) {
             throw new IllegalArgumentException("invalid event");
         }
-        String fromString = inputParser.getStringAfterKeywordUntilDelimiters(PARSER_REGEX.FROM);
-        String toString = inputParser.getStringAfterKeywordUntilDelimiters(PARSER_REGEX.TO);
+        String fromString = inputParser.getStringAfterKeywordUntilNextKeyword(PARSER_REGEX.FROM);
+        String toString = inputParser.getStringAfterKeywordUntilNextKeyword(PARSER_REGEX.TO);
         String taskDescription = inputParser.getTaskDescription();
-        return FidoTaskManager.addTask(new Event(taskDescription, fromString, toString));
+        return fidoTaskManager.addTask(new Event(taskDescription, fromString, toString));
     }
     private void echoInput() {
         String inputString;
@@ -83,7 +83,7 @@ public class Fido {
     private String handleTaskMarking() {
         try {
             int stdoutTaskIndex = inputParser.getTaskIndexForMarking();
-            return FidoTaskManager.markTaskAsDone(stdoutTaskIndex);
+            return fidoTaskManager.markTaskAsDone(stdoutTaskIndex);
         } catch (Exception e){
             return COMMANDS.INVALID_MARK_COMMAND.string;
         }
@@ -91,7 +91,7 @@ public class Fido {
     private String handleUnmarkingTask() {
         try {
             int stdoutTaskIndex = inputParser.getTaskIndexForMarking();
-            return FidoTaskManager.unmarkTask(stdoutTaskIndex);
+            return fidoTaskManager.unmarkTask(stdoutTaskIndex);
         } catch (Exception e) {
             return COMMANDS.INVALID_MARK_COMMAND.string;
         }

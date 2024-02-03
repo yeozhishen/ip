@@ -1,6 +1,8 @@
 import java.util.Scanner;
 import java.util.Arrays;
 public class Parser {
+    private static final int FIRST_WORD_INDEX = 0;
+    private static final int DOES_NOT_EXIST = -1;
     private Scanner stdin;
     private String inputString;
     private String inputCommand;
@@ -11,15 +13,16 @@ public class Parser {
         inputCommand = null;
         inputCommandArguments = null;
     }
-    public void collectUserInput() throws IllegalArgumentException{
+    public void collectUserInput() throws IllegalArgumentException {
         inputString = stdin.nextLine();
         String[] individualWords = inputString.trim().split(" ");
+        int last_word_index = individualWords.length;
         if(individualWords.length == 0) {
             throw new IllegalArgumentException("array is empty!");
         }
-        inputCommand = individualWords[0];
-        if(individualWords.length > 1) {
-            inputCommandArguments = Arrays.copyOfRange(individualWords, 1, individualWords.length);
+        inputCommand = individualWords[FIRST_WORD_INDEX];
+        if(last_word_index > 1) {
+            inputCommandArguments = Arrays.copyOfRange(individualWords, FIRST_WORD_INDEX + 1, last_word_index);
         }
     }
     public String getUserInputString() {
@@ -33,14 +36,12 @@ public class Parser {
     }
     public boolean isValidDeadline() {
         int byKeywordIndex = indexOfKeywordInCommandArguments(PARSER_REGEX.BY.string);
-        int lastElementIndex = inputCommandArguments.length - 1;
         return byKeywordIndex != -1 && !atEndsOfCommandArgumentList(byKeywordIndex);
     }
     public boolean isValidEvent() {
         int fromKeywordIndex = indexOfKeywordInCommandArguments(PARSER_REGEX.FROM.string);
         int toKeywordIndex = indexOfKeywordInCommandArguments(PARSER_REGEX.TO.string);
-        int lastElementIndex = inputCommandArguments.length - 1;
-        return fromKeywordIndex != -1 && toKeywordIndex != -1
+        return fromKeywordIndex != DOES_NOT_EXIST && toKeywordIndex != DOES_NOT_EXIST
                 && !atEndsOfCommandArgumentList(fromKeywordIndex)
                 && !atEndsOfCommandArgumentList(toKeywordIndex)
                 && !consecutiveInArgumentList(fromKeywordIndex, toKeywordIndex);
@@ -57,9 +58,9 @@ public class Parser {
                 return i;
             }
         }
-        return -1;
+        return DOES_NOT_EXIST;
     }
-    public String getStringAfterKeywordUntilDelimiters(PARSER_REGEX keyword) {
+    public String getStringAfterKeywordUntilNextKeyword(PARSER_REGEX keyword) {
         int keywordIndex = indexOfKeywordInCommandArguments(keyword.string);
         StringBuilder string = new StringBuilder();
         for (int i = keywordIndex + 1; i < inputCommandArguments.length; i++){
@@ -83,7 +84,7 @@ public class Parser {
         return string.toString();
     }
     public int getTaskIndexForMarking() throws IllegalArgumentException {
-        int taskIndexForMarking = -1;
+        int taskIndexForMarking;
         if(inputCommandArguments == null || inputCommandArguments.length > 1){
             throw new IllegalArgumentException("too many or too little arguments");
         }

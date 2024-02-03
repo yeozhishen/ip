@@ -46,9 +46,8 @@ public class TaskManager {
     public String addTask(Task task) {
         taskList.add(task);
         numTasks++;
-        String tasksInList = "Now you have " + numTasks + " in the list";
+        String tasksInList = "Now you have " + numTasks + " tasks in the list";
         return TASK_ADDED_STRING + task.toString()
                 + System.lineSeparator() + tasksInList;
     }
-
 }
