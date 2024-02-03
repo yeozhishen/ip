@@ -9,12 +9,6 @@ public class Task {
     public String getTask() {
         return task;
     }
-
-    public void printTask() {
-        System.out.print("[" + getStatusIcon() + "] ");
-        System.out.print(task);
-   }
-
    public String toString() {
         return "[" + getStatusIcon() + "] " + task;
    }

@@ -11,16 +11,6 @@ public class TaskManager {
         this.taskList = new LinkedList<Task>();
     }
 
-    public void printTaskList() {
-        printlnHorizontalLine();
-        for(int i = 0; i < numTasks; i++) {
-            Task currentTask = taskList.get(i);
-            System.out.print(i+1 + ". ");
-            currentTask.printTask();
-            System.out.println();
-        }
-        printlnHorizontalLine();
-    }
     public String getTaskList(){
         StringBuilder listOfTasks = new StringBuilder();
         for(int i = 0; i < numTasks; i++) {
@@ -46,10 +36,6 @@ public class TaskManager {
         Task taskToMark = taskList.get(stdoutTaskIndex - 1);
         taskToMark.setNotDone();
         return TASK_NOT_DONE_STRING + taskToMark.toString();
-    }
-    private void printlnHorizontalLine() {
-        String line = "--------------------------------------";
-        System.out.println(line);
     }
     public String addTask(String task) {
         Task newTask = new Task(task);

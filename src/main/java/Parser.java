@@ -11,9 +11,12 @@ public class Parser {
         inputCommand = null;
         inputCommandArguments = null;
     }
-    public void collectUserInput(){
+    public void collectUserInput() throws IllegalArgumentException{
         inputString = stdin.nextLine();
         String[] individualWords = inputString.split(" ");
+        if(individualWords.length == 0) {
+            throw new IllegalArgumentException("array is empty!");
+        }
         inputCommand = individualWords[0];
         if(individualWords.length > 1) {
             inputCommandArguments = Arrays.copyOfRange(individualWords, 1, individualWords.length);
@@ -27,7 +30,7 @@ public class Parser {
     }
     public int getTaskIndexForMarking() throws IllegalArgumentException {
         int taskIndexForMarking = -1;
-        if(inputCommandArguments == null | inputCommandArguments.length > 1){
+        if(inputCommandArguments == null || inputCommandArguments.length > 1){
             throw new IllegalArgumentException("too many or too little arguments");
         }
         try {

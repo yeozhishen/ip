@@ -4,7 +4,8 @@ public class Fido {
     private static final String COMMAND_EXIT_WORD = "bye";
     private static final String COMMAND_MARK_WORD = "mark";
     private static final String COMMAND_UNMARK_WORD = "unmark";
-    private static final String INVALID_COMMAND_STRING = "enter only 1 integer argument within range after the mark command";
+    private static final String INVALID_MARK_COMMAND_STRING = "enter only 1 integer argument within range after the mark/unmark command";
+    private static final String INVALID_COMMAND_STRING = "invalid command!";
     TaskManager FidoTaskManager;
     Parser inputParser;
     UserInterface userInterface;
@@ -16,10 +17,14 @@ public class Fido {
 
     public void run() {
         while(true) {
-            inputParser.collectUserInput();
-            String command = inputParser.getUserInputCommand();
-            String outputMessage = processInputCommand(command);
-            userInterface.printMessage(outputMessage);
+            try {
+                inputParser.collectUserInput();
+                String command = inputParser.getUserInputCommand();
+                String outputMessage = processInputCommand(command);
+                userInterface.printMessage(outputMessage);
+            } catch (IllegalArgumentException e) {
+                userInterface.printMessage(INVALID_COMMAND_STRING);
+            }
         }
     }
     private String processInputCommand(String command){
@@ -62,7 +67,7 @@ public class Fido {
             int stdoutTaskIndex = inputParser.getTaskIndexForMarking();
             return FidoTaskManager.markTaskAsDone(stdoutTaskIndex);
         } catch (Exception e){
-            return INVALID_COMMAND_STRING;
+            return INVALID_MARK_COMMAND_STRING;
         }
     }
     private String handleUnmarkingTask() {
@@ -70,7 +75,7 @@ public class Fido {
             int stdoutTaskIndex = inputParser.getTaskIndexForMarking();
             return FidoTaskManager.unmarkTask(stdoutTaskIndex);
         } catch (Exception e) {
-            return INVALID_COMMAND_STRING;
+            return INVALID_MARK_COMMAND_STRING;
         }
     }
 }
