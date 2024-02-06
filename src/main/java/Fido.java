@@ -20,7 +20,7 @@ public class Fido {
             }
         }
     }
-    private String processInputCommand(String command){
+    private String processInputCommand(String command) {
         COMMANDS CommandEnum = COMMANDS.getCommandEnumeration(command);
         switch (CommandEnum) {
         case EXIT:
