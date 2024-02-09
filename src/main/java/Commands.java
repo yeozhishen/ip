@@ -1,4 +1,4 @@
-public enum COMMANDS {
+public enum Commands {
     LIST("list"),
     TODO("todo"),
     DEADLINE("deadline"),
@@ -10,11 +10,11 @@ public enum COMMANDS {
     INVALID_MARK_COMMAND("enter only 1 integer argument within range after the mark/unmark command");
 
     public final String string;
-    private COMMANDS(String string) {
+    private Commands(String string) {
         this.string = string;
     }
-    public static COMMANDS getCommandEnumeration (String command) {
-        for (COMMANDS enumCommand : values()) {
+    public static Commands getCommandEnumeration (String command) {
+        for (Commands enumCommand : values()) {
             if (enumCommand.string.equals(command)) {
                 return enumCommand;
             }

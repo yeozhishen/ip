@@ -35,12 +35,12 @@ public class Parser {
         return inputCommandArguments.length >= 1;
     }
     public boolean isValidDeadline() {
-        int byKeywordIndex = indexOfKeywordInCommandArguments(PARSER_REGEX.BY.string);
+        int byKeywordIndex = indexOfKeywordInCommandArguments(ParserRegex.BY.string);
         return byKeywordIndex != -1 && !atEndsOfCommandArgumentList(byKeywordIndex);
     }
     public boolean isValidEvent() {
-        int fromKeywordIndex = indexOfKeywordInCommandArguments(PARSER_REGEX.FROM.string);
-        int toKeywordIndex = indexOfKeywordInCommandArguments(PARSER_REGEX.TO.string);
+        int fromKeywordIndex = indexOfKeywordInCommandArguments(ParserRegex.FROM.string);
+        int toKeywordIndex = indexOfKeywordInCommandArguments(ParserRegex.TO.string);
         return fromKeywordIndex != DOES_NOT_EXIST && toKeywordIndex != DOES_NOT_EXIST
                 && !atEndsOfCommandArgumentList(fromKeywordIndex)
                 && !atEndsOfCommandArgumentList(toKeywordIndex)
@@ -60,11 +60,11 @@ public class Parser {
         }
         return DOES_NOT_EXIST;
     }
-    public String getStringAfterKeywordUntilNextKeyword(PARSER_REGEX keyword) {
+    public String getStringAfterKeywordUntilNextKeyword(ParserRegex keyword) {
         int keywordIndex = indexOfKeywordInCommandArguments(keyword.string);
         StringBuilder string = new StringBuilder();
         for (int i = keywordIndex + 1; i < inputCommandArguments.length; i++){
-            if(PARSER_REGEX.isStringEnumeration(inputCommandArguments[i])) {
+            if(ParserRegex.isStringEnumeration(inputCommandArguments[i])) {
                 break;
             }
             string.append(" ");
@@ -75,7 +75,7 @@ public class Parser {
     public String getTaskDescription() {
         StringBuilder string = new StringBuilder();
         for (int i = 0; i < inputCommandArguments.length; i++){
-            if(PARSER_REGEX.isStringEnumeration(inputCommandArguments[i])) {
+            if(ParserRegex.isStringEnumeration(inputCommandArguments[i])) {
                 break;
             }
             string.append(" ");

@@ -1,14 +1,14 @@
-public enum PARSER_REGEX {
+public enum ParserRegex {
     BY("/by"),
     FROM("/from"),
     TO("/to"),
     REGEX_NOT_FOUND("invalid regex");
     public final String string;
-    private PARSER_REGEX(String string) {
+    private ParserRegex(String string) {
         this.string = string;
     }
-    public static PARSER_REGEX getCommandEnumeration (String command) {
-        for (PARSER_REGEX enumCommand : values()) {
+    public static ParserRegex getCommandEnumeration (String command) {
+        for (ParserRegex enumCommand : values()) {
             if (enumCommand.string.equals(command)) {
                 return enumCommand;
             }

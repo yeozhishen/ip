@@ -16,12 +16,12 @@ public class Fido {
                 String outputMessage = processInputCommand(command);
                 userInterface.printMessage(outputMessage);
             } catch (IllegalArgumentException e) {
-                userInterface.printMessage(COMMANDS.INVALID_COMMAND.string + e.getMessage());
+                userInterface.printMessage(Commands.INVALID_COMMAND.string + e.getMessage());
             }
         }
     }
     private String processInputCommand(String command) {
-        COMMANDS CommandEnum = COMMANDS.getCommandEnumeration(command);
+        Commands CommandEnum = Commands.getCommandEnumeration(command);
         switch (CommandEnum) {
         case EXIT:
             Exit();
@@ -38,7 +38,7 @@ public class Fido {
         case EVENT:
             return addEvent();
         default:
-            return COMMANDS.INVALID_COMMAND.string;
+            return Commands.INVALID_COMMAND.string;
         }
     }
     private void Exit() {
@@ -56,7 +56,7 @@ public class Fido {
         if(!inputParser.isValidDeadline()) {
             throw new IllegalArgumentException("invalid deadline");
         }
-        String byString = inputParser.getStringAfterKeywordUntilNextKeyword(PARSER_REGEX.BY);
+        String byString = inputParser.getStringAfterKeywordUntilNextKeyword(ParserRegex.BY);
         String taskDescription = inputParser.getTaskDescription();
         return fidoTaskManager.addTask(new Deadline(taskDescription, byString));
     }
@@ -64,8 +64,8 @@ public class Fido {
         if(!inputParser.isValidEvent()) {
             throw new IllegalArgumentException("invalid event");
         }
-        String fromString = inputParser.getStringAfterKeywordUntilNextKeyword(PARSER_REGEX.FROM);
-        String toString = inputParser.getStringAfterKeywordUntilNextKeyword(PARSER_REGEX.TO);
+        String fromString = inputParser.getStringAfterKeywordUntilNextKeyword(ParserRegex.FROM);
+        String toString = inputParser.getStringAfterKeywordUntilNextKeyword(ParserRegex.TO);
         String taskDescription = inputParser.getTaskDescription();
         return fidoTaskManager.addTask(new Event(taskDescription, fromString, toString));
     }
@@ -85,7 +85,7 @@ public class Fido {
             int stdoutTaskIndex = inputParser.getTaskIndexForMarking();
             return fidoTaskManager.markTaskAsDone(stdoutTaskIndex);
         } catch (Exception e){
-            return COMMANDS.INVALID_MARK_COMMAND.string;
+            return Commands.INVALID_MARK_COMMAND.string;
         }
     }
     private String handleUnmarkingTask() {
@@ -93,7 +93,7 @@ public class Fido {
             int stdoutTaskIndex = inputParser.getTaskIndexForMarking();
             return fidoTaskManager.unmarkTask(stdoutTaskIndex);
         } catch (Exception e) {
-            return COMMANDS.INVALID_MARK_COMMAND.string;
+            return Commands.INVALID_MARK_COMMAND.string;
         }
     }
 }
