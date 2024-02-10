@@ -6,8 +6,8 @@ public enum Commands {
     EXIT("bye"),
     MARK("mark"),
     UNMARK("unmark"),
-    INVALID_COMMAND("invalid command!"),
-    INVALID_MARK_COMMAND("enter only 1 integer argument within range after the mark/unmark command");
+    INVALID_COMMAND("invalid command!");
+
 
     public final String string;
     private Commands(String string) {

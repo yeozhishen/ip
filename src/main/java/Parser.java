@@ -14,16 +14,22 @@ public class Parser {
         inputCommandArguments = null;
     }
     public void collectUserInput() throws IllegalArgumentException {
+        clearAllInputs();
         inputString = stdin.nextLine();
         String[] individualWords = inputString.trim().split(" ");
         int last_word_index = individualWords.length;
         if(individualWords.length == 0) {
-            throw new IllegalArgumentException("array is empty!");
+            throw new IllegalArgumentException(ErrorMessages.MISSING_INPUT.string);
         }
         inputCommand = individualWords[FIRST_WORD_INDEX];
         if(last_word_index > 1) {
             inputCommandArguments = Arrays.copyOfRange(individualWords, FIRST_WORD_INDEX + 1, last_word_index);
         }
+    }
+    private void clearAllInputs() {
+        inputCommandArguments = null;
+        inputCommand = null;
+        inputString = null;
     }
     public String getUserInputString() {
         return inputString;
@@ -32,13 +38,23 @@ public class Parser {
         return inputCommand;
     }
     public boolean isValidTodo() {
+        if(inputCommandArguments == null){
+            return false;
+        }
         return inputCommandArguments.length >= 1;
     }
     public boolean isValidDeadline() {
+        if(inputCommandArguments == null){
+            return false;
+        }
         int byKeywordIndex = indexOfKeywordInCommandArguments(ParserRegex.BY.string);
-        return byKeywordIndex != -1 && !atEndsOfCommandArgumentList(byKeywordIndex);
+        return byKeywordIndex != DOES_NOT_EXIST
+                && !atEndsOfCommandArgumentList(byKeywordIndex);
     }
     public boolean isValidEvent() {
+        if(inputCommandArguments == null){
+            return false;
+        }
         int fromKeywordIndex = indexOfKeywordInCommandArguments(ParserRegex.FROM.string);
         int toKeywordIndex = indexOfKeywordInCommandArguments(ParserRegex.TO.string);
         return fromKeywordIndex != DOES_NOT_EXIST && toKeywordIndex != DOES_NOT_EXIST
