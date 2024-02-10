@@ -7,8 +7,6 @@ public enum Commands {
     MARK("mark"),
     UNMARK("unmark"),
     INVALID_COMMAND("invalid command!");
-
-
     public final String string;
     private Commands(String string) {
         this.string = string;
