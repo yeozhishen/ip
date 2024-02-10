@@ -13,17 +13,23 @@ public class Parser {
         inputCommand = null;
         inputCommandArguments = null;
     }
-    public void collectUserInput() throws IllegalArgumentException {
+    public void collectUserInput() throws FidoException {
+        clearAllInputs();
         inputString = stdin.nextLine();
         String[] individualWords = inputString.trim().split(" ");
         int last_word_index = individualWords.length;
         if(individualWords.length == 0) {
-            throw new IllegalArgumentException("array is empty!");
+            throw new FidoException(ErrorMessages.MISSING_INPUT.string);
         }
         inputCommand = individualWords[FIRST_WORD_INDEX];
         if(last_word_index > 1) {
             inputCommandArguments = Arrays.copyOfRange(individualWords, FIRST_WORD_INDEX + 1, last_word_index);
         }
+    }
+    private void clearAllInputs() {
+        inputCommandArguments = null;
+        inputCommand = null;
+        inputString = null;
     }
     public String getUserInputString() {
         return inputString;
@@ -32,19 +38,53 @@ public class Parser {
         return inputCommand;
     }
     public boolean isValidTodo() {
+        ParserRegex[] keywordsToLookOutFor = {};
+        if(inputCommandArguments == null || !onlyContainsKeywords(keywordsToLookOutFor)){
+            return false;
+        }
         return inputCommandArguments.length >= 1;
     }
     public boolean isValidDeadline() {
+        ParserRegex[] keywordsToLookOutFor = {ParserRegex.BY};
+        if(inputCommandArguments == null || !onlyContainsKeywords(keywordsToLookOutFor)){
+            return false;
+        }
         int byKeywordIndex = indexOfKeywordInCommandArguments(ParserRegex.BY.string);
-        return byKeywordIndex != -1 && !atEndsOfCommandArgumentList(byKeywordIndex);
+        return byKeywordIndex != DOES_NOT_EXIST
+                && !atEndsOfCommandArgumentList(byKeywordIndex);
     }
     public boolean isValidEvent() {
+        ParserRegex[] keywordsToLookOutFor = {ParserRegex.TO, ParserRegex.FROM};
+        if(inputCommandArguments == null || !onlyContainsKeywords(keywordsToLookOutFor)){
+            return false;
+        }
         int fromKeywordIndex = indexOfKeywordInCommandArguments(ParserRegex.FROM.string);
         int toKeywordIndex = indexOfKeywordInCommandArguments(ParserRegex.TO.string);
         return fromKeywordIndex != DOES_NOT_EXIST && toKeywordIndex != DOES_NOT_EXIST
                 && !atEndsOfCommandArgumentList(fromKeywordIndex)
                 && !atEndsOfCommandArgumentList(toKeywordIndex)
                 && !consecutiveInArgumentList(fromKeywordIndex, toKeywordIndex);
+    }
+    private boolean onlyContainsKeywords(ParserRegex[] keywordList) {
+        for (String word: inputCommandArguments) {
+            if (isKeyword(word) && !isWordInKeywordList(word, keywordList) ){
+                return false;
+            }
+        }
+        return true;
+    }
+    private boolean isKeyword(String word) {
+        ParserRegex regexMapping = ParserRegex.getCommandEnumeration(word);
+        return regexMapping != ParserRegex.REGEX_NOT_FOUND;
+    }
+    private boolean isWordInKeywordList(String word, ParserRegex[] keywordList) {
+        ParserRegex regexMapping = ParserRegex.getCommandEnumeration(word);
+        for(ParserRegex keyword: keywordList) {
+            if (regexMapping == keyword) {
+                return true;
+            }
+        }
+        return false;
     }
     private boolean atEndsOfCommandArgumentList(int index) {
         return index == 0 || index == (inputCommandArguments.length - 1);
@@ -83,15 +123,15 @@ public class Parser {
         }
         return string.toString();
     }
-    public int getTaskIndexForMarking() throws IllegalArgumentException {
+    public int getTaskIndexForMarking() throws FidoException {
         int taskIndexForMarking;
         if(inputCommandArguments == null || inputCommandArguments.length > 1){
-            throw new IllegalArgumentException("too many or too little arguments");
+            throw new FidoException("too many or too little arguments");
         }
         try {
             taskIndexForMarking = Integer.parseInt(inputCommandArguments[0]);
         } catch (Exception e){
-            throw new IllegalArgumentException("not a valid integer");
+            throw new FidoException("not a valid integer");
         }
         return taskIndexForMarking;
     }

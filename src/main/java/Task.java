@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String task;
     protected boolean isDone;
     protected char type;
@@ -7,10 +7,6 @@ public class Task {
         this.task = task;
         this.type = type;
         setNotDone();
-    }
-
-    public String getTask() {
-        return task;
     }
    public String toString() {
         return "[" + type + "]"
