@@ -86,16 +86,16 @@ public class Fido {
         try {
             int stdoutTaskIndex = inputParser.getTaskIndex();
             return fidoTaskManager.markTaskAsDone(stdoutTaskIndex);
-        } catch (Exception e){
-            return ErrorMessages.INVALID_MARK_COMMAND.string;
+        } catch (IndexOutOfBoundsException e){
+            throw new FidoException(ErrorMessages.INDEX_OUT_OF_BOUNDS.string);
         }
     }
     private String handleUnmarkingTask() throws FidoException {
         try {
             int stdoutTaskIndex = inputParser.getTaskIndex();
             return fidoTaskManager.unmarkTask(stdoutTaskIndex);
-        } catch (Exception e) {
-            return ErrorMessages.INVALID_MARK_COMMAND.string;
+        } catch (IndexOutOfBoundsException e) {
+            throw new FidoException(ErrorMessages.INDEX_OUT_OF_BOUNDS.string);
         }
     }
     private String deleteTask() throws FidoException {
