@@ -5,7 +5,6 @@ import java.io.FileWriter;
 public class FileManager {
     private static final String FILE_PATH = "./data/tasklist.txt";
     private static final String DIRECTORY_PATH = "./data";
-    Formatter formatter = new Formatter();
     File dataFile = new File(FILE_PATH);
     File directory = new File(DIRECTORY_PATH);
     public FileManager() {
@@ -50,7 +49,7 @@ public class FileManager {
     }
     public void save(Task task) throws FidoException {
         try {
-            String taskInFileFormat = formatter.convertToFileFormat(task);
+            String taskInFileFormat = Formatter.convertToFileFormat(task);
             FileWriter writer = new FileWriter(dataFile,true);
             writer.append(System.lineSeparator() + taskInFileFormat);
             writer.flush();
