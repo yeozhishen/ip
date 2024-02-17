@@ -3,9 +3,11 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileWriter;
 public class FileManager {
+    private static final String FILE_PATH = "./data/tasklist.txt";
+    private static final String DIRECTORY_PATH = "./data";
     Formatter formatter = new Formatter();
-    File dataFile = new File("./data/tasklist");
-    File directory = new File("./data");
+    File dataFile = new File(FILE_PATH);
+    File directory = new File(DIRECTORY_PATH);
     public FileManager() {
 
     }

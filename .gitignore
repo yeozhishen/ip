@@ -2,6 +2,8 @@
 /.idea/
 /out/
 /*.iml
+#data files
+/data
 #project UI files
 .project
 # Gradle build files
