@@ -2,7 +2,15 @@ public abstract class Task {
     protected String task;
     protected boolean isDone;
     protected char type;
-
+    public String getTask() {
+        return task;
+    }
+    public boolean isDone() {
+        return isDone;
+    }
+    public char getType() {
+        return type;
+    }
     public Task(String task, char type) {
         this.task = task;
         this.type = type;
@@ -10,7 +18,7 @@ public abstract class Task {
     }
    public String toString() {
         return "[" + type + "]"
-                + "[" + getStatusIcon() + "] "
+                + "[" + getStatusIcon() + "]"
                 + task;
    }
    private String getStatusIcon() {
