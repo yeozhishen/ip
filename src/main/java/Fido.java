@@ -37,6 +37,8 @@ public class Fido {
             return addDeadline();
         case EVENT:
             return addEvent();
+        case DELETE:
+            return deleteTask();
         default:
             return Commands.INVALID_COMMAND.string;
         }
@@ -80,18 +82,26 @@ public class Fido {
             System.out.println(inputString);
         }
     }
-    private String handleTaskMarking() throws FidoException{
+    private String handleTaskMarking() throws FidoException {
         try {
-            int stdoutTaskIndex = inputParser.getTaskIndexForMarking();
+            int stdoutTaskIndex = inputParser.getTaskIndex();
             return fidoTaskManager.markTaskAsDone(stdoutTaskIndex);
         } catch (IndexOutOfBoundsException e){
             throw new FidoException(ErrorMessages.INDEX_OUT_OF_BOUNDS.string);
         }
     }
-    private String handleUnmarkingTask() throws FidoException{
+    private String handleUnmarkingTask() throws FidoException {
         try {
-            int stdoutTaskIndex = inputParser.getTaskIndexForMarking();
+            int stdoutTaskIndex = inputParser.getTaskIndex();
             return fidoTaskManager.unmarkTask(stdoutTaskIndex);
+        } catch (IndexOutOfBoundsException e) {
+            throw new FidoException(ErrorMessages.INDEX_OUT_OF_BOUNDS.string);
+        }
+    }
+    private String deleteTask() throws FidoException {
+        try {
+            int stdoutTaskIndex = inputParser.getTaskIndex();
+            return fidoTaskManager.deleteTask(stdoutTaskIndex);
         } catch (IndexOutOfBoundsException e) {
             throw new FidoException(ErrorMessages.INDEX_OUT_OF_BOUNDS.string);
         }

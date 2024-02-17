@@ -4,6 +4,7 @@ public class TaskManager {
     private static final String TASK_DONE_STRING = "uwu  marked the task as done: ";
     private static final String TASK_NOT_DONE_STRING = ":( marked the task as not done yet: ";
     private static final String TASK_ADDED_STRING = "added: ";
+    private static final String TASK_DELETED_STRING = "I have deleted: \n";
     private int numTasks;
 
     public TaskManager() {
@@ -43,11 +44,23 @@ public class TaskManager {
         }
         return false;
     }
+    public String deleteTask(int stdoutTaskIndex) throws IndexOutOfBoundsException {
+        if(isIndexOutOfRange(stdoutTaskIndex)) {
+            throw new IndexOutOfBoundsException();
+        }
+        Task taskToDelete = taskList.get(stdoutTaskIndex - 1);
+        taskList.remove(stdoutTaskIndex - 1);
+        numTasks--;
+        return TASK_DELETED_STRING + taskToDelete.toString() + "\n" + getTasksInListString();
+    }
     public String addTask(Task task) {
         taskList.add(task);
         numTasks++;
-        String tasksInList = "Now you have " + numTasks + " tasks in the list";
         return TASK_ADDED_STRING + task.toString()
-                + System.lineSeparator() + tasksInList;
+                + System.lineSeparator() + getTasksInListString();
+    }
+
+    private String getTasksInListString() {
+        return "Now you have " + numTasks + " tasks in the list";
     }
 }

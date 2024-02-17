@@ -6,6 +6,7 @@ public enum Commands {
     EXIT("bye"),
     MARK("mark"),
     UNMARK("unmark"),
+    DELETE("delete"),
     INVALID_COMMAND("invalid command!");
     public final String string;
     private Commands(String string) {

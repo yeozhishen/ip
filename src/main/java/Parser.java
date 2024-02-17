@@ -123,7 +123,7 @@ public class Parser {
         }
         return string.toString();
     }
-    public int getTaskIndexForMarking() throws FidoException {
+    public int getTaskIndex() throws FidoException {
         int taskIndexForMarking;
         if(inputCommandArguments == null || inputCommandArguments.length > 1){
             throw new FidoException("too many or too little arguments");
