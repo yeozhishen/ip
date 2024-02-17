@@ -80,20 +80,20 @@ public class Fido {
             System.out.println(inputString);
         }
     }
-    private String handleTaskMarking() {
+    private String handleTaskMarking() throws FidoException{
         try {
             int stdoutTaskIndex = inputParser.getTaskIndexForMarking();
             return fidoTaskManager.markTaskAsDone(stdoutTaskIndex);
-        } catch (Exception e){
-            return ErrorMessages.INVALID_MARK_COMMAND.string;
+        } catch (IndexOutOfBoundsException e){
+            throw new FidoException(ErrorMessages.INDEX_OUT_OF_BOUNDS.string);
         }
     }
-    private String handleUnmarkingTask() {
+    private String handleUnmarkingTask() throws FidoException{
         try {
             int stdoutTaskIndex = inputParser.getTaskIndexForMarking();
             return fidoTaskManager.unmarkTask(stdoutTaskIndex);
-        } catch (Exception e) {
-            return ErrorMessages.INVALID_MARK_COMMAND.string;
+        } catch (IndexOutOfBoundsException e) {
+            throw new FidoException(ErrorMessages.INDEX_OUT_OF_BOUNDS.string);
         }
     }
 }
