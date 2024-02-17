@@ -11,7 +11,9 @@ public class TaskManager {
         this.numTasks = 0;
         this.taskList = new LinkedList<Task>();
     }
-
+    public Task getTask(int stdoutTaskIndex) {
+        return taskList.get(stdoutTaskIndex - 1);
+    }
     public String getTaskList(){
         StringBuilder listOfTasks = new StringBuilder();
         for(int i = 0; i < numTasks; i++) {

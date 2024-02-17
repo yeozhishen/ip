@@ -4,6 +4,9 @@ public class Deadline extends Task {
         super(task, 'D');
         this.doBy = doBy;
     }
+    public String getDoBy() {
+        return doBy;
+    }
     @Override
     public String toString() {
         return super.toString()

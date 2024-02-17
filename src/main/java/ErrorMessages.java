@@ -5,6 +5,7 @@ public enum ErrorMessages {
     INVALID_TODO("Invalid todo. Input todo in the form of: todo [task]"),
 
     MISSING_INPUT("No input detected, enter an input command"),
+    FILE_ERROR("error regarding file IO"),
     INDEX_OUT_OF_BOUNDS("Index given is out of bounds");
     public final String string;
     private ErrorMessages(String string) {
