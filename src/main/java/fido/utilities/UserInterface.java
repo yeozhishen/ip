@@ -1,3 +1,5 @@
+package fido.utilities;
+
 public class UserInterface {
     private static final String STRING_DECORATION = "------------------------------------";
     private static final String GREETING = "Hello! I'm Fido"

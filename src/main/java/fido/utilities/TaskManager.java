@@ -1,3 +1,7 @@
+package fido.utilities;
+
+import fido.datastructures.Task;
+
 import java.util.LinkedList;
 public class TaskManager {
     private LinkedList<Task> taskList;

@@ -1,3 +1,5 @@
+package fido.enumerators;
+
 public enum ParserRegex {
     BY("/by"),
     FROM("/from"),
