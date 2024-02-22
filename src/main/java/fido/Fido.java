@@ -1,3 +1,15 @@
+package fido;
+
+import fido.datastructures.Deadline;
+import fido.datastructures.Event;
+import fido.datastructures.Task;
+import fido.datastructures.Todo;
+import fido.enumerators.Commands;
+import fido.enumerators.ErrorMessages;
+import fido.enumerators.ParserRegex;
+import fido.exceptions.FidoException;
+import fido.utilities.*;
+
 import java.util.List;
 public class Fido {
     TaskManager fidoTaskManager;

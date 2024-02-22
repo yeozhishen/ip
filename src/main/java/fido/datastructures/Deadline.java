@@ -1,3 +1,5 @@
+package fido.datastructures;
+
 public class Deadline extends Task {
     protected String doBy;
     public Deadline(String task, String doBy) {
