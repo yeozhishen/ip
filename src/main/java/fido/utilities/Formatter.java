@@ -24,7 +24,7 @@ public class Formatter {
                 + message + System.lineSeparator() + bottomLineDecoration;
     }
     public static String convertToFileFormat(Task task) {
-        String output = task.getType() + FILE_DELIMITER + task.isDone() + FILE_DELIMITER + task.getTask();
+        String output = task.getType() + FILE_DELIMITER + task.isDone() + FILE_DELIMITER + task.getTaskDescription();
         switch (task.getType()) {
         case TODO:
             break;
