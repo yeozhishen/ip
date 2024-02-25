@@ -1,13 +1,36 @@
+package fido;
+
+import fido.datastructures.Deadline;
+import fido.datastructures.Event;
+import fido.datastructures.Task;
+import fido.datastructures.Todo;
+import fido.enumerators.Commands;
+import fido.enumerators.ErrorMessages;
+import fido.enumerators.ParserRegex;
+import fido.exceptions.FidoException;
+import fido.utilities.*;
+
+import java.util.List;
 public class Fido {
     TaskManager fidoTaskManager;
     Parser inputParser;
     UserInterface userInterface;
+    FileManager fileManager;
     public Fido() {
         this.fidoTaskManager = new TaskManager();
         this.inputParser = new Parser();
         this.userInterface = new UserInterface();
+        this.fileManager = new FileManager();
+        try {
+            String resultOfFileCheck = fileManager.ensureFileExists();
+            loadTasksFromFile();
+            userInterface.printMessage(resultOfFileCheck);
+        } catch (FidoException e) {
+            userInterface.printMessage(e.getMessage());
+            Exit();
+        }
+        userInterface.printGreetingMessage();
     }
-
     public void run() {
         while(true) {
             try {
@@ -39,6 +62,8 @@ public class Fido {
             return addEvent();
         case DELETE:
             return deleteTask();
+        case FIND:
+            return findTasks();
         default:
             return Commands.INVALID_COMMAND.string;
         }
@@ -48,44 +73,43 @@ public class Fido {
         System.exit(0);
     }
     private String addTodo() throws FidoException {
-        if(!inputParser.isValidTodo()) {
+        if (!inputParser.isValidTodo()) {
             throw new FidoException(ErrorMessages.INVALID_TODO.string);
         }
         String taskDescription = inputParser.getTaskDescription();
-        return fidoTaskManager.addTask(new Todo(taskDescription));
+        Todo todo = new Todo(taskDescription);
+        fileManager.save(todo);
+        return fidoTaskManager.addTask(todo);
     }
     private String addDeadline() throws FidoException {
-        if(!inputParser.isValidDeadline()) {
+        if (!inputParser.isValidDeadline()) {
             throw new FidoException(ErrorMessages.INVALID_DEADLINE.string);
         }
         String byString = inputParser.getStringAfterKeywordUntilNextKeyword(ParserRegex.BY);
         String taskDescription = inputParser.getTaskDescription();
-        return fidoTaskManager.addTask(new Deadline(taskDescription, byString));
+        Deadline deadline = new Deadline(taskDescription, byString);
+        fileManager.save(deadline);
+        return fidoTaskManager.addTask(deadline);
     }
     private String addEvent() throws FidoException {
-        if(!inputParser.isValidEvent()) {
+        if (!inputParser.isValidEvent()) {
             throw new FidoException(ErrorMessages.INVALID_EVENT.string);
         }
         String fromString = inputParser.getStringAfterKeywordUntilNextKeyword(ParserRegex.FROM);
         String toString = inputParser.getStringAfterKeywordUntilNextKeyword(ParserRegex.TO);
         String taskDescription = inputParser.getTaskDescription();
-        return fidoTaskManager.addTask(new Event(taskDescription, fromString, toString));
-    }
-    private void echoInput() throws FidoException {
-        String inputString;
-        while (true) {
-            inputParser.collectUserInput();
-            inputString = inputParser.getUserInputString();
-            if (inputString.equals(Commands.EXIT.string)) {
-                return;
-            }
-            System.out.println(inputString);
-        }
+        Event event = new Event(taskDescription, fromString, toString);
+        fileManager.save(event);
+        return fidoTaskManager.addTask(event);
     }
     private String handleTaskMarking() throws FidoException {
         try {
             int stdoutTaskIndex = inputParser.getTaskIndex();
-            return fidoTaskManager.markTaskAsDone(stdoutTaskIndex);
+            String unmarkedTask = Formatter.convertToFileFormat(fidoTaskManager.getTask(stdoutTaskIndex));
+            String message = fidoTaskManager.markTaskAsDone(stdoutTaskIndex);
+            String markedTask = Formatter.convertToFileFormat(fidoTaskManager.getTask(stdoutTaskIndex));
+            fileManager.overwriteLine(unmarkedTask, markedTask);
+            return message;
         } catch (IndexOutOfBoundsException e){
             throw new FidoException(ErrorMessages.INDEX_OUT_OF_BOUNDS.string);
         }
@@ -93,7 +117,11 @@ public class Fido {
     private String handleUnmarkingTask() throws FidoException {
         try {
             int stdoutTaskIndex = inputParser.getTaskIndex();
-            return fidoTaskManager.unmarkTask(stdoutTaskIndex);
+            String markedTask = Formatter.convertToFileFormat(fidoTaskManager.getTask(stdoutTaskIndex));
+            String message = fidoTaskManager.unmarkTask(stdoutTaskIndex);
+            String unmarkedTask = Formatter.convertToFileFormat(fidoTaskManager.getTask(stdoutTaskIndex));
+            fileManager.overwriteLine(markedTask, unmarkedTask);
+            return message;
         } catch (IndexOutOfBoundsException e) {
             throw new FidoException(ErrorMessages.INDEX_OUT_OF_BOUNDS.string);
         }
@@ -101,9 +129,23 @@ public class Fido {
     private String deleteTask() throws FidoException {
         try {
             int stdoutTaskIndex = inputParser.getTaskIndex();
-            return fidoTaskManager.deleteTask(stdoutTaskIndex);
+            String taskToDelete = Formatter.convertToFileFormat(fidoTaskManager.getTask(stdoutTaskIndex));
+            String message = fidoTaskManager.deleteTask(stdoutTaskIndex);
+            fileManager.overwriteLine(System.lineSeparator() + taskToDelete, "");
+            return message;
         } catch (IndexOutOfBoundsException e) {
             throw new FidoException(ErrorMessages.INDEX_OUT_OF_BOUNDS.string);
+        }
+    }
+    private String findTasks() throws FidoException{
+        String keyword = inputParser.getFindKeyword();
+        return fidoTaskManager.findTasksUsingKeyword(keyword);
+    }
+    private void loadTasksFromFile() throws FidoException {
+        String taskFileContents = fileManager.readFile();
+        List<Task> taskList = Formatter.convertToTaskListFromFileFormat(taskFileContents);
+        for (Task task : taskList) {
+            fidoTaskManager.addTask(task);
         }
     }
 }

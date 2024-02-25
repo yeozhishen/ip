@@ -1,3 +1,5 @@
+package fido.enumerators;
+
 public enum Commands {
     LIST("list"),
     TODO("todo"),
@@ -7,12 +9,13 @@ public enum Commands {
     MARK("mark"),
     UNMARK("unmark"),
     DELETE("delete"),
+    FIND("find"),
     INVALID_COMMAND("invalid command!");
     public final String string;
     private Commands(String string) {
         this.string = string;
     }
-    public static Commands getCommandEnumeration (String command) {
+    public static Commands getCommandEnumeration(String command) {
         for (Commands enumCommand : values()) {
             if (enumCommand.string.equals(command)) {
                 return enumCommand;
