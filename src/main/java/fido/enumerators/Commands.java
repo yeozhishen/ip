@@ -9,6 +9,7 @@ public enum Commands {
     MARK("mark"),
     UNMARK("unmark"),
     DELETE("delete"),
+    FIND("find"),
     INVALID_COMMAND("invalid command!");
     public final String string;
     private Commands(String string) {

@@ -70,13 +70,13 @@ public class FileManager {
                 buffer.append(sc.nextLine() + System.lineSeparator());
             }
             String rawString = buffer.toString();
-            return handleIOErrors(rawString);
+            return handleFileFormatErrors(rawString);
         } catch (Exception e) {
             throw new FidoException(ErrorMessages.FILE_ERROR.string);
         }
     }
-    private String handleIOErrors(String rawString) throws FidoException {
-        //double newline bug in file writing
+    private String handleFileFormatErrors(String rawString) throws FidoException {
+        //This fixes the presence of more than 1 newline bug in between tasks in the file
         try {
             rawString = rawString.replaceAll(System.lineSeparator() + "+", System.lineSeparator());
             FileWriter writer = new FileWriter(dataFile);

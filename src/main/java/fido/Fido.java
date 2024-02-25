@@ -62,6 +62,8 @@ public class Fido {
             return addEvent();
         case DELETE:
             return deleteTask();
+        case FIND:
+            return findTasks();
         default:
             return Commands.INVALID_COMMAND.string;
         }
@@ -100,17 +102,6 @@ public class Fido {
         fileManager.save(event);
         return fidoTaskManager.addTask(event);
     }
-    private void echoInput() throws FidoException {
-        String inputString;
-        while (true) {
-            inputParser.collectUserInput();
-            inputString = inputParser.getUserInputString();
-            if (inputString.equals(Commands.EXIT.string)) {
-                return;
-            }
-            System.out.println(inputString);
-        }
-    }
     private String handleTaskMarking() throws FidoException {
         try {
             int stdoutTaskIndex = inputParser.getTaskIndex();
@@ -145,6 +136,10 @@ public class Fido {
         } catch (IndexOutOfBoundsException e) {
             throw new FidoException(ErrorMessages.INDEX_OUT_OF_BOUNDS.string);
         }
+    }
+    private String findTasks() throws FidoException{
+        String keyword = inputParser.getFindKeyword();
+        return fidoTaskManager.findTasksUsingKeyword(keyword);
     }
     private void loadTasksFromFile() throws FidoException {
         String taskFileContents = fileManager.readFile();
