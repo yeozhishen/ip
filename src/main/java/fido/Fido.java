@@ -21,16 +21,17 @@ public class Fido {
         this.inputParser = new Parser();
         this.userInterface = new UserInterface();
         this.fileManager = new FileManager();
-    }
-
-    public void run() {
         try {
-            fileManager.ensureFileExists();
+            String resultOfFileCheck = fileManager.ensureFileExists();
             loadTasksFromFile();
+            userInterface.printMessage(resultOfFileCheck);
         } catch (FidoException e) {
             userInterface.printMessage(e.getMessage());
             Exit();
         }
+        userInterface.printGreetingMessage();
+    }
+    public void run() {
         while(true) {
             try {
                 inputParser.collectUserInput();
@@ -70,7 +71,7 @@ public class Fido {
         System.exit(0);
     }
     private String addTodo() throws FidoException {
-        if(!inputParser.isValidTodo()) {
+        if (!inputParser.isValidTodo()) {
             throw new FidoException(ErrorMessages.INVALID_TODO.string);
         }
         String taskDescription = inputParser.getTaskDescription();
@@ -79,7 +80,7 @@ public class Fido {
         return fidoTaskManager.addTask(todo);
     }
     private String addDeadline() throws FidoException {
-        if(!inputParser.isValidDeadline()) {
+        if (!inputParser.isValidDeadline()) {
             throw new FidoException(ErrorMessages.INVALID_DEADLINE.string);
         }
         String byString = inputParser.getStringAfterKeywordUntilNextKeyword(ParserRegex.BY);
@@ -89,7 +90,7 @@ public class Fido {
         return fidoTaskManager.addTask(deadline);
     }
     private String addEvent() throws FidoException {
-        if(!inputParser.isValidEvent()) {
+        if (!inputParser.isValidEvent()) {
             throw new FidoException(ErrorMessages.INVALID_EVENT.string);
         }
         String fromString = inputParser.getStringAfterKeywordUntilNextKeyword(ParserRegex.FROM);

@@ -20,7 +20,7 @@ public class TaskManager {
     }
     public String getTaskList(){
         StringBuilder listOfTasks = new StringBuilder();
-        for(int i = 0; i < numTasks; i++) {
+        for (int i = 0; i < numTasks; i++) {
             Task currentTask = taskList.get(i);
             String lineOfTask = Integer.toString(i + 1) +
                     ". " + currentTask.toString() + System.lineSeparator();
@@ -29,7 +29,7 @@ public class TaskManager {
         return listOfTasks.toString();
     }
     public String markTaskAsDone(int stdoutTaskIndex) throws IndexOutOfBoundsException {
-        if(isIndexOutOfRange(stdoutTaskIndex)) {
+        if (isIndexOutOfRange(stdoutTaskIndex)) {
             throw new IndexOutOfBoundsException();
         }
         Task taskToMark = taskList.get(stdoutTaskIndex - 1);
@@ -37,7 +37,7 @@ public class TaskManager {
         return TASK_DONE_STRING + taskToMark.toString();
     }
     public String unmarkTask(int stdoutTaskIndex) throws IndexOutOfBoundsException {
-        if(isIndexOutOfRange(stdoutTaskIndex)) {
+        if (isIndexOutOfRange(stdoutTaskIndex)) {
             throw new IndexOutOfBoundsException();
         }
         Task taskToMark = taskList.get(stdoutTaskIndex - 1);
@@ -51,7 +51,7 @@ public class TaskManager {
         return false;
     }
     public String deleteTask(int stdoutTaskIndex) throws IndexOutOfBoundsException {
-        if(isIndexOutOfRange(stdoutTaskIndex)) {
+        if (isIndexOutOfRange(stdoutTaskIndex)) {
             throw new IndexOutOfBoundsException();
         }
         Task taskToDelete = taskList.get(stdoutTaskIndex - 1);
