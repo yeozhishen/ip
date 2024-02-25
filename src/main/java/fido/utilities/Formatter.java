@@ -8,6 +8,10 @@ import fido.datastructures.Todo;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+/*
+ * Formats the output of Fido and 
+ * converts tasks to and from file format
+ */
 public class Formatter {
     private static final char DEADLINE = 'D';
     private static final char TODO = 'T';
@@ -19,10 +23,22 @@ public class Formatter {
     private static final int END = 4;
     private static final String FILE_DELIMITER = "`";
     private static final String TASK_DELIMITER = System.lineSeparator();
+    /*
+     * Prettifies a message with a top and bottom line string decoration
+     * @param message the message to be prettified
+     * @param String topLineDecoration the string decoration to be added to the top of the message
+     * @param String bottomLineDecoration the string decoration to be added to the bottom of the message
+     * @return String the prettified message
+     */
     public static String prettify(String message, String topLineDecoration, String bottomLineDecoration) {
         return topLineDecoration + System.lineSeparator()
                 + message + System.lineSeparator() + bottomLineDecoration;
     }
+    /*
+     * Converts a task to a string in file format to be handled by the file manager
+     * @param Task task the task to be converted
+     * @return String the task in file format
+     */
     public static String convertToFileFormat(Task task) {
         String output = task.getType() + FILE_DELIMITER + task.isDone() + FILE_DELIMITER + task.getTaskDescription();
         switch (task.getType()) {
@@ -38,7 +54,12 @@ public class Formatter {
         }
         return output;
     }
-    public static Task convertFromFileFormat(String task) {
+    /*
+     * converts a single line of task in file format to a task object
+     * @param String task the task in file format
+     * @return Task the task object
+     */
+    private static Task convertFromFileFormat(String task) {
         String[] taskFields = task.split(FILE_DELIMITER);
         Task actualTask = createTaskFromFileFormat(taskFields);
         if (Boolean.parseBoolean(taskFields[IS_DONE])) {
@@ -58,6 +79,11 @@ public class Formatter {
             return new Event(taskFields[DESCRIPTION], taskFields[BY_OR_START], taskFields[END]);
         }
     }
+    /*
+     * Converts a list of tasks in file format to a List of task objects
+     * @param String taskListString the list of tasks in file format
+     * @return List<Task> the list of task objects
+     */
     public static List<Task> convertToTaskListFromFileFormat(String taskListString) {
         List<String> stringTaskList = new ArrayList<String>(Arrays.asList(taskListString.split(TASK_DELIMITER)));
         //first item in the list is the file header
