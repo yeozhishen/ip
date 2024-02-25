@@ -1,3 +1,9 @@
+package fido.utilities;
+
+import fido.exceptions.FidoException;
+import fido.enumerators.ErrorMessages;
+import fido.enumerators.ParserRegex;
+
 import java.util.Scanner;
 import java.util.Arrays;
 public class Parser {
@@ -16,13 +22,13 @@ public class Parser {
     public void collectUserInput() throws FidoException {
         clearAllInputs();
         inputString = stdin.nextLine();
-        String[] individualWords = inputString.trim().split(" ");
-        int last_word_index = individualWords.length;
-        if(individualWords.length == 0) {
+        if (inputString.isEmpty()) {
             throw new FidoException(ErrorMessages.MISSING_INPUT.string);
         }
+        String[] individualWords = inputString.trim().split(" ");
+        int last_word_index = individualWords.length;
         inputCommand = individualWords[FIRST_WORD_INDEX];
-        if(last_word_index > 1) {
+        if (last_word_index > 1) {
             inputCommandArguments = Arrays.copyOfRange(individualWords, FIRST_WORD_INDEX + 1, last_word_index);
         }
     }
@@ -39,14 +45,14 @@ public class Parser {
     }
     public boolean isValidTodo() {
         ParserRegex[] keywordsToLookOutFor = {};
-        if(inputCommandArguments == null || !onlyContainsKeywords(keywordsToLookOutFor)){
+        if (inputCommandArguments == null || !onlyContainsKeywords(keywordsToLookOutFor)){
             return false;
         }
         return inputCommandArguments.length >= 1;
     }
     public boolean isValidDeadline() {
         ParserRegex[] keywordsToLookOutFor = {ParserRegex.BY};
-        if(inputCommandArguments == null || !onlyContainsKeywords(keywordsToLookOutFor)){
+        if (inputCommandArguments == null || !onlyContainsKeywords(keywordsToLookOutFor)){
             return false;
         }
         int byKeywordIndex = indexOfKeywordInCommandArguments(ParserRegex.BY.string);
@@ -55,7 +61,7 @@ public class Parser {
     }
     public boolean isValidEvent() {
         ParserRegex[] keywordsToLookOutFor = {ParserRegex.TO, ParserRegex.FROM};
-        if(inputCommandArguments == null || !onlyContainsKeywords(keywordsToLookOutFor)){
+        if (inputCommandArguments == null || !onlyContainsKeywords(keywordsToLookOutFor)){
             return false;
         }
         int fromKeywordIndex = indexOfKeywordInCommandArguments(ParserRegex.FROM.string);
@@ -79,7 +85,7 @@ public class Parser {
     }
     private boolean isWordInKeywordList(String word, ParserRegex[] keywordList) {
         ParserRegex regexMapping = ParserRegex.getCommandEnumeration(word);
-        for(ParserRegex keyword: keywordList) {
+        for (ParserRegex keyword: keywordList) {
             if (regexMapping == keyword) {
                 return true;
             }
@@ -93,8 +99,8 @@ public class Parser {
         return index1 == (index2 - 1) || index2 == (index1 - 1);
     }
     private int indexOfKeywordInCommandArguments(String keyword) {
-        for(int i = 0; i < inputCommandArguments.length; i++) {
-            if(inputCommandArguments[i].equals(keyword)) {
+        for (int i = 0; i < inputCommandArguments.length; i++) {
+            if (inputCommandArguments[i].equals(keyword)) {
                 return i;
             }
         }
@@ -104,34 +110,48 @@ public class Parser {
         int keywordIndex = indexOfKeywordInCommandArguments(keyword.string);
         StringBuilder string = new StringBuilder();
         for (int i = keywordIndex + 1; i < inputCommandArguments.length; i++){
-            if(ParserRegex.isStringEnumeration(inputCommandArguments[i])) {
+            if (ParserRegex.isStringEnumeration(inputCommandArguments[i])) {
                 break;
             }
             string.append(" ");
             string.append(inputCommandArguments[i]);
         }
-        return string.toString();
+        return string.toString().trim();
     }
     public String getTaskDescription() {
         StringBuilder string = new StringBuilder();
         for (int i = 0; i < inputCommandArguments.length; i++){
-            if(ParserRegex.isStringEnumeration(inputCommandArguments[i])) {
+            if (ParserRegex.isStringEnumeration(inputCommandArguments[i])) {
                 break;
             }
             string.append(" ");
             string.append(inputCommandArguments[i]);
         }
-        return string.toString();
+        return string.toString().trim();
     }
-    public int getTaskIndexForMarking() throws FidoException {
+    public String getFindKeyword() throws FidoException{
+        if (!isValidFind()) {
+            throw new FidoException(ErrorMessages.INVALID_FIND.string);
+        }
+        StringBuilder string = new StringBuilder();
+        for (String word : inputCommandArguments) {
+            string.append(" ");
+            string.append(word);
+        }
+        return string.toString().trim();
+    }
+    private boolean isValidFind() {
+        return inputCommandArguments != null && inputCommandArguments.length != 0;
+    }
+    public int getTaskIndex() throws FidoException {
         int taskIndexForMarking;
-        if(inputCommandArguments == null || inputCommandArguments.length > 1){
-            throw new FidoException("too many or too little arguments");
+        if (inputCommandArguments == null || inputCommandArguments.length > 1){
+            throw new FidoException(ErrorMessages.INVALID_ARGUMENTS.string);
         }
         try {
             taskIndexForMarking = Integer.parseInt(inputCommandArguments[0]);
         } catch (Exception e){
-            throw new FidoException("not a valid integer");
+            throw new FidoException(ErrorMessages.INVALID_INTEGER.string);
         }
         return taskIndexForMarking;
     }

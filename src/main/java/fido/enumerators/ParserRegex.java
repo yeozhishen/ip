@@ -1,3 +1,5 @@
+package fido.enumerators;
+
 public enum ParserRegex {
     BY("/by"),
     FROM("/from"),
@@ -16,9 +18,6 @@ public enum ParserRegex {
         return REGEX_NOT_FOUND;
     }
     public static boolean isStringEnumeration (String command) {
-        if(getCommandEnumeration(command) == REGEX_NOT_FOUND) {
-            return false;
-        }
-        return true;
+        return getCommandEnumeration(command) != REGEX_NOT_FOUND;
     }
 }
