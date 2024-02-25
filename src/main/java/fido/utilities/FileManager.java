@@ -11,11 +11,10 @@ import java.io.FileWriter;
 public class FileManager {
     private static final String FILE_PATH = "./data/tasklist.txt";
     private static final String DIRECTORY_PATH = "./data";
+    private static final String FILE_CREATED_STRING = "new data file successfully created";
+    private static final String EXISTING_FILE_FOUND_STRING = "existing data file found";
     File dataFile = new File(FILE_PATH);
     File directory = new File(DIRECTORY_PATH);
-    public FileManager() {
-
-    }
     public boolean fileExists() {
         return dataFile.exists();
     }
@@ -29,9 +28,9 @@ public class FileManager {
                 FileWriter writer = new FileWriter(dataFile,true);
                 writer.append("Tasklist");
                 writer.flush();
-                return "file successfully created";
+                return FILE_CREATED_STRING;
             }
-            return "existing file found";
+            return EXISTING_FILE_FOUND_STRING;
         } catch (IOException e) {
             throw new FidoException(ErrorMessages.FILE_ERROR.string);
         }
