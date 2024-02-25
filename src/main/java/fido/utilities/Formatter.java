@@ -1,3 +1,10 @@
+package fido.utilities;
+
+import fido.datastructures.Deadline;
+import fido.datastructures.Event;
+import fido.datastructures.Task;
+import fido.datastructures.Todo;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,8 +24,8 @@ public class Formatter {
                 + message + System.lineSeparator() + bottomLineDecoration;
     }
     public static String convertToFileFormat(Task task) {
-        String output = task.getType() + FILE_DELIMITER + task.isDone() + FILE_DELIMITER + task.getTask();
-        switch (task.type) {
+        String output = task.getType() + FILE_DELIMITER + task.isDone() + FILE_DELIMITER + task.getTaskDescription();
+        switch (task.getType()) {
         case TODO:
             break;
         case DEADLINE:

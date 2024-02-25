@@ -1,3 +1,5 @@
+package fido.datastructures;
+
 public class Deadline extends Task {
     protected String doBy;
     public Deadline(String task, String doBy) {
@@ -10,6 +12,6 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return super.toString()
-                + " (" + "by:" + doBy + ")";
+                + " (" + "by: " + doBy + ")";
     }
 }

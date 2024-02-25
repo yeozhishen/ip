@@ -1,3 +1,5 @@
+package fido.datastructures;
+
 public class Event extends Task {
     protected String startTime;
     protected String endTime;
@@ -15,7 +17,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return super.toString()
-                + " (" + "from:" + startTime
-                + ", to:" + endTime + ")";
+                + " (" + "from: " + startTime
+                + ", to: " + endTime + ")";
     }
 }

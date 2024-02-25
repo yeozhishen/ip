@@ -1,8 +1,10 @@
+package fido.datastructures;
+
 public abstract class Task {
     protected String task;
     protected boolean isDone;
     protected char type;
-    public String getTask() {
+    public String getTaskDescription() {
         return task;
     }
     public boolean isDone() {
@@ -16,18 +18,18 @@ public abstract class Task {
         this.type = type;
         setNotDone();
     }
-   public String toString() {
+    public String toString() {
         return "[" + type + "]"
-                + "[" + getStatusIcon() + "]"
+                + "[" + getStatusIcon() + "] "
                 + task;
-   }
-   private String getStatusIcon() {
+    }
+    private String getStatusIcon() {
         return (isDone ? "X" : " ");
    }
-   public void setDone(){
+    public void setDone(){
         isDone = true;
    }
-   public void setNotDone(){
+    public void setNotDone(){
         isDone = false;
    }
 }

@@ -1,3 +1,9 @@
+package fido.utilities;
+
+import fido.exceptions.FidoException;
+import fido.datastructures.Task;
+import fido.enumerators.ErrorMessages;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
@@ -5,11 +11,10 @@ import java.io.FileWriter;
 public class FileManager {
     private static final String FILE_PATH = "./data/tasklist.txt";
     private static final String DIRECTORY_PATH = "./data";
+    private static final String FILE_CREATED_STRING = "new data file successfully created";
+    private static final String EXISTING_FILE_FOUND_STRING = "existing data file found";
     File dataFile = new File(FILE_PATH);
     File directory = new File(DIRECTORY_PATH);
-    public FileManager() {
-
-    }
     public boolean fileExists() {
         return dataFile.exists();
     }
@@ -23,9 +28,9 @@ public class FileManager {
                 FileWriter writer = new FileWriter(dataFile,true);
                 writer.append("Tasklist");
                 writer.flush();
-                return "file successfully created";
+                return FILE_CREATED_STRING;
             }
-            return "existing file found";
+            return EXISTING_FILE_FOUND_STRING;
         } catch (IOException e) {
             throw new FidoException(ErrorMessages.FILE_ERROR.string);
         }
@@ -65,13 +70,13 @@ public class FileManager {
                 buffer.append(sc.nextLine() + System.lineSeparator());
             }
             String rawString = buffer.toString();
-            return handleIOErrors(rawString);
+            return handleFileFormatErrors(rawString);
         } catch (Exception e) {
             throw new FidoException(ErrorMessages.FILE_ERROR.string);
         }
     }
-    private String handleIOErrors(String rawString) throws FidoException {
-        //double newline bug in file writing
+    private String handleFileFormatErrors(String rawString) throws FidoException {
+        //This fixes the presence of more than 1 newline bug in between tasks in the file
         try {
             rawString = rawString.replaceAll(System.lineSeparator() + "+", System.lineSeparator());
             FileWriter writer = new FileWriter(dataFile);
