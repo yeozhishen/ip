@@ -24,6 +24,7 @@ tasks faster compared to GUI applications
   `java -jar fido.jar` to run the application
 * Refer to the features below fo details of each command
 ## Features
+
 ### 1. Listing all the tasks: list 
 #### **_SYNOPSIS_**
     list
