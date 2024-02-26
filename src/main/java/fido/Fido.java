@@ -28,6 +28,7 @@ public class Fido {
      * Constructor for Fido
      * Initializes the task manager, parser, user interface and file manager
      * and loads tasks from the file/creates the file if it does not exist
+     * recreates the file if there are parsing issues
      * ends the program if there are issues with the file
      */
     public Fido() {
