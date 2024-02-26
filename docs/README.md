@@ -16,7 +16,7 @@ tasks faster compared to GUI applications
   * [bye](#9-exit-the-program-bye)
 * [Saving the data](#saving-the-data)
 * [Editing the data](#editing-the-data)
-* Known issues
+* [Known issues](#known-issues)
 
 ## Quick Start
 * Ensure you have Java 11 or above installed in your Computer.
