@@ -1,5 +1,4 @@
 package fido;
-
 import fido.datastructures.Deadline;
 import fido.datastructures.Event;
 import fido.datastructures.Task;
@@ -8,14 +7,28 @@ import fido.enumerators.Commands;
 import fido.enumerators.ErrorMessages;
 import fido.enumerators.ParserRegex;
 import fido.exceptions.FidoException;
-import fido.utilities.*;
-
+import fido.utilities.FileManager;
+import fido.utilities.Formatter;
+import fido.utilities.Parser;
+import fido.utilities.TaskManager;
+import fido.utilities.UserInterface;
 import java.util.List;
+/*
+ * The main class that runs the Fido program
+ * driver logic for the program
+ * integrating functionality from parser, task manager, user interface and file manager
+ */
 public class Fido {
     TaskManager fidoTaskManager;
     Parser inputParser;
     UserInterface userInterface;
     FileManager fileManager;
+    /*
+     * Constructor for Fido
+     * Initializes the task manager, parser, user interface and file manager
+     * and loads tasks from the file/creates the file if it does not exist
+     * ends the program if there are issues with the file
+     */
     public Fido() {
         this.fidoTaskManager = new TaskManager();
         this.inputParser = new Parser();
@@ -31,8 +44,12 @@ public class Fido {
         }
         userInterface.printGreetingMessage();
     }
+    /*
+     * Main method that runs the Fido program
+     * continuously collects user input, processes the input and prints the output
+     */
     public void run() {
-        while(true) {
+        while (true) {
             try {
                 inputParser.collectUserInput();
                 String command = inputParser.getUserInputCommand();
@@ -43,6 +60,12 @@ public class Fido {
             }
         }
     }
+    /*
+     * Processes the user input command and returns the output message
+     * @param String command the user input command
+     * @return String the output message of the command executed
+     * @throws FidoException relaying erros messages from the command methods
+     */
     private String processInputCommand(String command) throws FidoException {
         Commands CommandEnum = Commands.getCommandEnumeration(command);
         switch (CommandEnum) {
@@ -72,6 +95,11 @@ public class Fido {
         userInterface.printExitMessage();
         System.exit(0);
     }
+    /*
+     * Adds a todo to the task list
+     * @return String the string representation of the todo that was added
+     * @throws FidoException if the todo is invalid
+     */
     private String addTodo() throws FidoException {
         if (!inputParser.isValidTodo()) {
             throw new FidoException(ErrorMessages.INVALID_TODO.string);
@@ -81,6 +109,11 @@ public class Fido {
         fileManager.save(todo);
         return fidoTaskManager.addTask(todo);
     }
+    /*
+     * Adds a deadline to the task list
+     * @return String the string representation of the deadline that was added
+     * @throws FidoException if the deadline is invalid
+     */
     private String addDeadline() throws FidoException {
         if (!inputParser.isValidDeadline()) {
             throw new FidoException(ErrorMessages.INVALID_DEADLINE.string);
@@ -91,6 +124,11 @@ public class Fido {
         fileManager.save(deadline);
         return fidoTaskManager.addTask(deadline);
     }
+    /*
+     * Adds an event to the task list
+     * @return String the string representation of the event that was added
+     * @throws FidoException if the event is invalid
+     */
     private String addEvent() throws FidoException {
         if (!inputParser.isValidEvent()) {
             throw new FidoException(ErrorMessages.INVALID_EVENT.string);
@@ -102,6 +140,11 @@ public class Fido {
         fileManager.save(event);
         return fidoTaskManager.addTask(event);
     }
+    /*
+     * Marks a task as done in the task list
+     * @return String the string representation of the task that was marked as done
+     * @throws FidoException if the index is out of range
+     */
     private String handleTaskMarking() throws FidoException {
         try {
             int stdoutTaskIndex = inputParser.getTaskIndex();
@@ -114,6 +157,11 @@ public class Fido {
             throw new FidoException(ErrorMessages.INDEX_OUT_OF_BOUNDS.string);
         }
     }
+    /*
+     * Marks a task as not done in the task list
+     * @return String the string representation of the task that was marked as not done
+     * @throws FidoException if the index is out of range
+     */
     private String handleUnmarkingTask() throws FidoException {
         try {
             int stdoutTaskIndex = inputParser.getTaskIndex();
@@ -126,6 +174,11 @@ public class Fido {
             throw new FidoException(ErrorMessages.INDEX_OUT_OF_BOUNDS.string);
         }
     }
+    /*
+     * Deletes a task from the task list
+     * @return String the string representation of the task that was deleted
+     * @throws FidoException if the index is out of range
+     */
     private String deleteTask() throws FidoException {
         try {
             int stdoutTaskIndex = inputParser.getTaskIndex();
@@ -137,10 +190,19 @@ public class Fido {
             throw new FidoException(ErrorMessages.INDEX_OUT_OF_BOUNDS.string);
         }
     }
+    /*
+     * Finds tasks using a keyword
+     * @return String the string representation of the tasks that were found
+     * @throws FidoException if the find command does not have a keyword supplied
+     */
     private String findTasks() throws FidoException{
         String keyword = inputParser.getFindKeyword();
         return fidoTaskManager.findTasksUsingKeyword(keyword);
     }
+    /*
+     * Loads tasks from the file
+     * @throws FidoException if there are issues with the file
+     */
     private void loadTasksFromFile() throws FidoException {
         String taskFileContents = fileManager.readFile();
         List<Task> taskList = Formatter.convertToTaskListFromFileFormat(taskFileContents);

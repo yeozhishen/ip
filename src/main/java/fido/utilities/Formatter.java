@@ -1,10 +1,8 @@
 package fido.utilities;
-
 import fido.datastructures.Deadline;
 import fido.datastructures.Event;
 import fido.datastructures.Task;
 import fido.datastructures.Todo;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

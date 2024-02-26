@@ -1,9 +1,7 @@
 package fido.utilities;
-
 import fido.exceptions.FidoException;
 import fido.datastructures.Task;
 import fido.enumerators.ErrorMessages;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
@@ -15,9 +13,6 @@ public class FileManager {
     private static final String EXISTING_FILE_FOUND_STRING = "existing data file found";
     File dataFile = new File(FILE_PATH);
     File directory = new File(DIRECTORY_PATH);
-    public boolean fileExists() {
-        return dataFile.exists();
-    }
     /*
      * Ensures that the file exists, if it does not, it creates a new file
      * @return String message indicating the status of the file

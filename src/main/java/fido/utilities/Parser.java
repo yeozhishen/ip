@@ -1,9 +1,7 @@
 package fido.utilities;
-
 import fido.exceptions.FidoException;
 import fido.enumerators.ErrorMessages;
 import fido.enumerators.ParserRegex;
-
 import java.util.Scanner;
 import java.util.Arrays;
 /*
@@ -44,9 +42,6 @@ public class Parser {
         inputCommandArguments = null;
         inputCommand = null;
         inputString = null;
-    }
-    public String getUserInputString() {
-        return inputString;
     }
     public String getUserInputCommand() {
         return inputCommand;
