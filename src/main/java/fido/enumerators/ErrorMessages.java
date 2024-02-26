@@ -1,5 +1,9 @@
 package fido.enumerators;
-
+/*
+ * Represents the error messages that Fido can output
+ * with the string representation of the error message
+ * will be used with the FidoException exception
+ */
 public enum ErrorMessages {
     INVALID_DEADLINE("Invalid deadline. Input deadline in the form of: deadline [task] /by [time]"),
     INVALID_EVENT("Invalid event. Input event in the form of: event [task] /from [start_time] /to [end_time]"),

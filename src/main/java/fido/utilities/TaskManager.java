@@ -1,11 +1,11 @@
 package fido.utilities;
-
 import fido.datastructures.Task;
-
 import java.util.LinkedList;
+/*
+ * Manages the tasks in the task list in memory
+ */
 public class TaskManager {
     private LinkedList<Task> taskList;
-    private LinkedList<Task> lastCheckedList;
     private static final String TASK_DONE_STRING = "uwu  marked the task as done: ";
     private static final String TASK_NOT_DONE_STRING = ":( marked the task as not done yet: ";
     private static final String TASK_ADDED_STRING = "added: ";
@@ -21,6 +21,10 @@ public class TaskManager {
     public Task getTask(int stdoutTaskIndex) {
         return taskList.get(stdoutTaskIndex - 1);
     }
+    /*
+     * Returns a string representation of the current task list in memory
+     * @return String representation of the task list
+     */
     public String getTaskList(){
         if (numTasks == 0) {
             return NO_TASKS_FOUND_STRING;
@@ -34,6 +38,11 @@ public class TaskManager {
         }
         return listOfTasks.toString();
     }
+    /*
+     * Returns a string representation of the tasks in memory that contains the keyword
+     * @param String keyword the keyword to search for in the task list
+     * @return String representation of the task list
+     */
     public String findTasksUsingKeyword(String keyword) {
         StringBuilder listOfTasks = new StringBuilder();
         int counter = 1;
@@ -51,6 +60,13 @@ public class TaskManager {
         }
         return LIST_MATCHING_TASKS_STRING + listOfTasks.toString();
     }
+    /*
+     * Marks a task as done in the task list in memory
+     * @param int stdoutTaskIndex the index of the task to mark as done based on what the user sees
+     * in the terminal, which is 1-indexed
+     * @return String the string representation of the task that was marked as done
+     * @throws IndexOutOfBoundsException if the index is out of range
+     */
     public String markTaskAsDone(int stdoutTaskIndex) throws IndexOutOfBoundsException {
         if (isIndexOutOfRange(stdoutTaskIndex)) {
             throw new IndexOutOfBoundsException();
@@ -59,6 +75,13 @@ public class TaskManager {
         taskToMark.setDone();
         return TASK_DONE_STRING + taskToMark.toString();
     }
+    /*
+     * Marks a task as not done in the task list in memory
+     * @param int stdoutTaskIndex the index of the task to mark as not done based on what the user sees
+     * in the terminal, which is 1-indexed
+     * @return String the string representation of the task that was marked as not done
+     * @throws IndexOutOfBoundsException if the index is out of range
+     */
     public String unmarkTask(int stdoutTaskIndex) throws IndexOutOfBoundsException {
         if (isIndexOutOfRange(stdoutTaskIndex)) {
             throw new IndexOutOfBoundsException();
@@ -73,6 +96,13 @@ public class TaskManager {
         }
         return false;
     }
+    /*
+     * Deletes a task from the task list in memory
+     * @param int stdoutTaskIndex the index of the task to delete based on what the user sees
+     * in the terminal, which is 1-indexed
+     * @return String the string representation of the task that was deleted
+     * @throws IndexOutOfBoundsException if the index is out of range
+     */
     public String deleteTask(int stdoutTaskIndex) throws IndexOutOfBoundsException {
         if (isIndexOutOfRange(stdoutTaskIndex)) {
             throw new IndexOutOfBoundsException();
@@ -82,6 +112,12 @@ public class TaskManager {
         numTasks--;
         return TASK_DELETED_STRING + taskToDelete.toString() + "\n" + getTasksInListString();
     }
+    /*
+     * Adds a task to the task list in memory
+     * @param Task task the task to add to the task list
+     * @return String the string representation of the task that was added 
+     * to indicate that the task was added
+     */
     public String addTask(Task task) {
         taskList.add(task);
         numTasks++;

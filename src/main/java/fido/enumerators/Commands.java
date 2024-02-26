@@ -1,5 +1,8 @@
 package fido.enumerators;
-
+/*
+ * Represents the commands that Fido can understand
+ * with the string representation of the command
+ */
 public enum Commands {
     LIST("list"),
     TODO("todo"),
