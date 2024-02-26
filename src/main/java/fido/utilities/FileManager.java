@@ -1,9 +1,7 @@
 package fido.utilities;
-
 import fido.exceptions.FidoException;
 import fido.datastructures.Task;
 import fido.enumerators.ErrorMessages;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
@@ -15,9 +13,11 @@ public class FileManager {
     private static final String EXISTING_FILE_FOUND_STRING = "existing data file found";
     File dataFile = new File(FILE_PATH);
     File directory = new File(DIRECTORY_PATH);
-    public boolean fileExists() {
-        return dataFile.exists();
-    }
+    /*
+     * Ensures that the file exists, if it does not, it creates a new file
+     * @return String message indicating the status of the file
+     * @throws FidoException if there is an error creating the file
+     */
     public String ensureFileExists() throws FidoException {
         try {
             if (!directory.exists()) {
@@ -35,6 +35,12 @@ public class FileManager {
             throw new FidoException(ErrorMessages.FILE_ERROR.string);
         }
     }
+    /*
+     * Overwrites a line in the file with a new line
+     * @param String oldText the old line of text to be replaced
+     * @param String newText the new line of text to replace the old line
+     * @throws FidoException if there is an error overwriting the line in the file
+     */
     public void overwriteLine(String oldText, String newText) throws FidoException {
         try {
             Scanner sc = new Scanner(dataFile);
@@ -52,6 +58,11 @@ public class FileManager {
             throw new FidoException(ErrorMessages.FILE_ERROR.string);
         }
     }
+    /*
+     * Saves a new task to the file
+     * @param Task task the task to be saved
+     * @throws FidoException if there is an error saving the task to the file
+     */
     public void save(Task task) throws FidoException {
         try {
             String taskInFileFormat = Formatter.convertToFileFormat(task);
@@ -62,6 +73,11 @@ public class FileManager {
             throw new FidoException(ErrorMessages.FILE_ERROR.string);
         }
     }
+    /*
+     * Reads the file and returns the contents of the file with the corresponding file newlines
+     * @return String the contents of the file
+     * @throws FidoException if there is an error reading the file
+     */
     public String readFile() throws FidoException {
         try {
             Scanner sc = new Scanner(dataFile);
