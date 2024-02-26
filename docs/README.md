@@ -35,6 +35,7 @@ Example of usage: <br>
 list
 ```
 Expected output: <br>
+
 ```dtd
 ------------------------------------
 1. [T][ ] task1
@@ -233,6 +234,7 @@ The index of the task to mark should be derived from the output of the `list` co
 #### **_USAGE_**
 Example:
 Original list of tasks using `list` command:
+
 ```dtd
 ------------------------------------
 1. [T][ ] todo one
