@@ -27,7 +27,9 @@ tasks faster compared to GUI applications
 
 ### 1. Listing all the tasks: list 
 #### **_SYNOPSIS_**
-    list
+```dtd
+list
+```
 #### **_DESCRIPTION_**
 Lists the tasks tracked by the application
 #### **_USAGE_**
@@ -48,7 +50,9 @@ Expected output: <br>
 
 ### 2. Add a ToDo: todo
 #### **_SYNOPSIS_**
-    todo [description_of_task]
+```dtd    
+todo [description_of_task]
+```
 #### **_DESCRIPTION_**
 Adds a todo to the list of tasks tracked by Fido.
 A todo should only consist of a task description.
@@ -68,7 +72,9 @@ Now you have 1 tasks in the list
 
 ### 3. Add a Deadline: deadline
 #### **_SYNOPSIS_**
-    deadline [description_of_task] /by [time]
+```dtd
+deadline [description_of_task] /by [time]
+```
 #### **_DESCRIPTION_**
 Adds a deadline to the list of tasks tracked by Fido.
 <br>A deadline should only consist of a task description and a time to finish the task by.
@@ -91,7 +97,9 @@ Now you have 1 tasks in the list
 
 ### 4. Add a Event: event
 #### **_SYNOPSIS_**
-    event [description_of_task] /from [start_time] /to [end_time]
+```dtd    
+event [description_of_task] /from [start_time] /to [end_time]
+```
 #### **_DESCRIPTION_**
 Adds an event to the list of tasks tracked by Fido.
 <br>A event should only consist of a task description, the start time of a task and the end time of the task.
@@ -116,7 +124,9 @@ Now you have 1 tasks in the list
 
 ### 5. Mark a task: mark
 #### **_SYNOPSIS_**
-    mark [index_of_task]
+```dtd    
+mark [index_of_task]
+```
 #### **_DESCRIPTION_**
 Marks a tasks as completed in the list of tasks tracked by Fido. <br>
 The index of the task to mark should be derived from the output of the `list` command
@@ -150,7 +160,9 @@ Updated list of tasks using `list` command:
 
 ### 6. Unmark a task: unmark
 #### **_SYNOPSIS_**
-    unmark [index_of_task]
+```dtd    
+unmark [index_of_task]
+```
 #### **_DESCRIPTION_**
 Marks a tasks as incomplete in the list of tasks tracked by Fido. <br>
 The index of the task to mark should be derived from the output of the `list` command
@@ -188,7 +200,9 @@ Updated list of tasks using `list` command:
 
 ### 7. Delete a task: delete
 #### **_SYNOPSIS_**
-    delete [index_of_task]
+```dtd    
+delete [index_of_task]
+```
 #### **_DESCRIPTION_**
 Deletes a task from the list of tasks tracked by Fido. <br>
 The index of the task to mark should be derived from the output of the `list` command
@@ -227,7 +241,9 @@ Updated list of tasks using `list` command:
 
 ### 8. Find tasks: find 
 #### **_SYNOPSIS_**
-    find [keywords_to_search_for]
+```dtd    
+find [keywords_to_search_for]
+```
 #### **_DESCRIPTION_**
 Finds the tasks containing `[keywords_to_search_for]` **in the task description** from list of tasks tracked by Fido, <br>
 and outputs it to the user. <br>
