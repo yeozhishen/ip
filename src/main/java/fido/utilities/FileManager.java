@@ -11,6 +11,8 @@ public class FileManager {
     private static final String DIRECTORY_PATH = "./data";
     private static final String FILE_CREATED_STRING = "new data file successfully created";
     private static final String EXISTING_FILE_FOUND_STRING = "existing data file found";
+    private static final String FILE_RECREATED_SUCCESSFULLY_STRING = "file recreation success";
+    private static final String FILE_TITLE = "Tasklist";
     File dataFile = new File(FILE_PATH);
     File directory = new File(DIRECTORY_PATH);
     /*
@@ -26,7 +28,7 @@ public class FileManager {
             boolean fileDoesNotExist = dataFile.createNewFile();
             if (fileDoesNotExist) {
                 FileWriter writer = new FileWriter(dataFile,true);
-                writer.append("Tasklist");
+                writer.append(FILE_TITLE);
                 writer.flush();
                 return FILE_CREATED_STRING;
             }
@@ -94,7 +96,7 @@ public class FileManager {
     private String handleFileFormatErrors(String rawString) throws FidoException {
         //This fixes the presence of more than 1 newline bug in between tasks in the file
         try {
-            rawString = rawString.replaceAll(System.lineSeparator() + "+", System.lineSeparator());
+            rawString = rawString.replaceAll(System.lineSeparator() + System.lineSeparator(), System.lineSeparator());
             FileWriter writer = new FileWriter(dataFile);
             writer.append(rawString);
             writer.flush();
@@ -102,5 +104,11 @@ public class FileManager {
         } catch (IOException e) {
             throw new FidoException(ErrorMessages.FILE_ERROR.string);
         }
+    }
+    public String recreateFile() throws FidoException {
+        File fileToDelete = new File(FILE_PATH);
+        fileToDelete.delete();
+        ensureFileExists();
+        return FILE_RECREATED_SUCCESSFULLY_STRING;
     }
 }
