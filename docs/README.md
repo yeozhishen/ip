@@ -16,6 +16,7 @@ tasks faster compared to GUI applications
   * [bye](#9-exit-the-program-bye)
 * [Saving the data](#saving-the-data)
 * [Editing the data](#editing-the-data)
+* Known issues
 
 ## Quick Start
 * Ensure you have Java 11 or above installed in your Computer.
@@ -315,3 +316,7 @@ If the file is corrupted, the current data file will be discarded and a new file
 It is highly not recommended to edit the data file as wrongly editing the file will lead to file corruption </br>
 which will result in the user having to delete the file, losing all the data
 
+## Known issues
+* it is known that adding \` in any of the task fields will lead to an error in the file parsing <br>
+  This is because the \` symbol is used as a file delimiter when saving the tasks in file format <br>
+  As such, the user should avoid using \` in the task fields
