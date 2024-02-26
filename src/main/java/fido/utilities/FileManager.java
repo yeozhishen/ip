@@ -105,6 +105,11 @@ public class FileManager {
             throw new FidoException(ErrorMessages.FILE_ERROR.string);
         }
     }
+    /*
+     * recreates the data file
+     * @return String message indicating the status of the file
+     * @throws FidoException if there is an error recreating the file
+     */
     public String recreateFile() throws FidoException {
         File fileToDelete = new File(FILE_PATH);
         fileToDelete.delete();
