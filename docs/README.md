@@ -14,7 +14,8 @@ tasks faster compared to GUI applications
   * [delete](#7-delete-a-task-delete)
   * [find](#8-find-tasks-find-)
   * [bye](#9-exit-the-program-bye)
-* Saving the data
+* [Saving the data](#saving-the-data)
+* [Editing the data](#editing-the-data)
 
 ## Quick Start
 * Ensure you have Java 11 or above installed in your Computer.
@@ -24,9 +25,12 @@ tasks faster compared to GUI applications
   `java -jar fido.jar` to run the application
 * Refer to the features below fo details of each command
 ## Features
+
 ### 1. Listing all the tasks: list 
 #### **_SYNOPSIS_**
-    list
+```dtd
+list
+```
 #### **_DESCRIPTION_**
 Lists the tasks tracked by the application
 #### **_USAGE_**
@@ -35,6 +39,7 @@ Example of usage: <br>
 list
 ```
 Expected output: <br>
+
 ```dtd
 ------------------------------------
 1. [T][ ] task1
@@ -46,7 +51,9 @@ Expected output: <br>
 
 ### 2. Add a ToDo: todo
 #### **_SYNOPSIS_**
-    todo [description_of_task]
+```dtd    
+todo [description_of_task]
+```
 #### **_DESCRIPTION_**
 Adds a todo to the list of tasks tracked by Fido.
 A todo should only consist of a task description.
@@ -66,13 +73,16 @@ Now you have 1 tasks in the list
 
 ### 3. Add a Deadline: deadline
 #### **_SYNOPSIS_**
-    deadline [description_of_task] /by [time]
+```dtd
+deadline [description_of_task] /by [time]
+```
 #### **_DESCRIPTION_**
 Adds a deadline to the list of tasks tracked by Fido.
 <br>A deadline should only consist of a task description and a time to finish the task by.
 #### **_OPTIONS_**
 * `/by [time]`<br>
   Specifies the time to complete the task by. The format can be in any String format.
+
 #### **_USAGE_**
 Example of usage: <br>
 ```dtd
@@ -89,7 +99,9 @@ Now you have 1 tasks in the list
 
 ### 4. Add a Event: event
 #### **_SYNOPSIS_**
-    event [description_of_task] /from [start_time] /to [end_time]
+```dtd    
+event [description_of_task] /from [start_time] /to [end_time]
+```
 #### **_DESCRIPTION_**
 Adds an event to the list of tasks tracked by Fido.
 <br>A event should only consist of a task description, the start time of a task and the end time of the task.
@@ -98,6 +110,7 @@ Adds an event to the list of tasks tracked by Fido.
   Specifies the start time the event starts. The format can be in any String format.
 * `/to [end_time]`<br>
     Specifies the end time the event ends. The format can be in any String format.
+
 #### **_USAGE_**
 Example of usage: <br>
 ```dtd
@@ -114,7 +127,9 @@ Now you have 1 tasks in the list
 
 ### 5. Mark a task: mark
 #### **_SYNOPSIS_**
-    mark [index_of_task]
+```dtd    
+mark [index_of_task]
+```
 #### **_DESCRIPTION_**
 Marks a tasks as completed in the list of tasks tracked by Fido. <br>
 The index of the task to mark should be derived from the output of the `list` command
@@ -148,7 +163,9 @@ Updated list of tasks using `list` command:
 
 ### 6. Unmark a task: unmark
 #### **_SYNOPSIS_**
-    unmark [index_of_task]
+```dtd    
+unmark [index_of_task]
+```
 #### **_DESCRIPTION_**
 Marks a tasks as incomplete in the list of tasks tracked by Fido. <br>
 The index of the task to mark should be derived from the output of the `list` command
@@ -186,7 +203,9 @@ Updated list of tasks using `list` command:
 
 ### 7. Delete a task: delete
 #### **_SYNOPSIS_**
-    delete [index_of_task]
+```dtd    
+delete [index_of_task]
+```
 #### **_DESCRIPTION_**
 Deletes a task from the list of tasks tracked by Fido. <br>
 The index of the task to mark should be derived from the output of the `list` command
@@ -225,7 +244,9 @@ Updated list of tasks using `list` command:
 
 ### 8. Find tasks: find 
 #### **_SYNOPSIS_**
-    find [keywords_to_search_for]
+```dtd    
+find [keywords_to_search_for]
+```
 #### **_DESCRIPTION_**
 Finds the tasks containing `[keywords_to_search_for]` **in the task description** from list of tasks tracked by Fido, <br>
 and outputs it to the user. <br>
@@ -233,6 +254,7 @@ The index of the task to mark should be derived from the output of the `list` co
 #### **_USAGE_**
 Example:
 Original list of tasks using `list` command:
+
 ```dtd
 ------------------------------------
 1. [T][ ] todo one
