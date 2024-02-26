@@ -13,6 +13,7 @@ public enum ErrorMessages {
     INVALID_FIND("Invalid find command. Too little arguments, enter a keyword/s to find"),
     MISSING_INPUT("No input detected, enter an input command"),
     FILE_ERROR("error regarding file IO"),
+    FILE_LOAD_ERROR("Error in parsing file"),
     INDEX_OUT_OF_BOUNDS("Index given is out of bounds");
     public final String string;
     private ErrorMessages(String string) {
