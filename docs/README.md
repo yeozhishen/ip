@@ -81,6 +81,7 @@ Adds a deadline to the list of tasks tracked by Fido.
 #### **_OPTIONS_**
 * `/by [time]`<br>
   Specifies the time to complete the task by. The format can be in any String format.
+
 #### **_USAGE_**
 Example of usage: <br>
 ```dtd
@@ -108,6 +109,7 @@ Adds an event to the list of tasks tracked by Fido.
   Specifies the start time the event starts. The format can be in any String format.
 * `/to [end_time]`<br>
     Specifies the end time the event ends. The format can be in any String format.
+
 #### **_USAGE_**
 Example of usage: <br>
 ```dtd
