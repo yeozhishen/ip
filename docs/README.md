@@ -31,11 +31,11 @@ tasks faster compared to GUI applications
 Lists the tasks tracked by the application
 #### **_USAGE_**
 Example of usage: <br>
-```
+```dtd
 list
 ```
 Expected output: <br>
-```
+```dtd
 ------------------------------------
 1. [T][ ] task1
 2. [E][ ] add more tasks (from: 6pm, to: 89)
@@ -52,11 +52,11 @@ Adds a todo to the list of tasks tracked by Fido.
 A todo should only consist of a task description.
 #### **_USAGE_**
 Example of usage: <br>
-```
+```dtd
 todo attend a concert
 ```
 Expected output: <br>
-```
+```dtd
 ------------------------------------
 added: [T][ ] attend a concert
 Now you have 1 tasks in the list
@@ -75,11 +75,11 @@ Adds a deadline to the list of tasks tracked by Fido.
   Specifies the time to complete the task by. The format can be in any String format.
 #### **_USAGE_**
 Example of usage: <br>
-```
+```dtd
 deadline finish cs2113 tutorial /by 9'oclock
 ```
 Expected output: <br>
-```
+```dtd
 ------------------------------------
 added: [D][ ] finish cs2113 tutorial (by: 9'oclock)
 Now you have 1 tasks in the list
@@ -100,11 +100,11 @@ Adds an event to the list of tasks tracked by Fido.
     Specifies the end time the event ends. The format can be in any String format.
 #### **_USAGE_**
 Example of usage: <br>
-```
+```dtd
 event attend lecture /from 4pm /to 6pm
 ```
 Expected output: <br>
-```
+```dtd
 ------------------------------------
 added: [E][ ] attend lecture (from: 4pm, to: 6pm)
 Now you have 1 tasks in the list
@@ -121,24 +121,24 @@ The index of the task to mark should be derived from the output of the `list` co
 <br> and must be a positive integer.
 #### **_USAGE_**
 Example: Original list of tasks using `list` command:
-```
+```dtd
 ------------------------------------
 1. [E][ ] attend lecture (from: 4pm, to: 6pm)
 
 ------------------------------------
 ```
 Example of usage: <br>
-```
+```dtd
 mark 1
 ```
 Expected output: <br>
-```
+```dtd
 ------------------------------------
 uwu  marked the task as done: [E][X] attend lecture (from: 4pm, to: 6pm)
 ------------------------------------
 ``` 
 Updated list of tasks using `list` command:
-```
+```dtd
 ------------------------------------
 1. [E][X] attend lecture (from: 4pm, to: 6pm)
 
@@ -155,7 +155,7 @@ The index of the task to mark should be derived from the output of the `list` co
 <br> and must be a positive integer.
 #### **_USAGE_**
 Example: Original list of tasks using `list` command:
-```
+```dtd
 ------------------------------------
 1. [E][X] attend lecture (from: 4pm, to: 6pm)
 2. [T][ ] cook food
@@ -164,17 +164,17 @@ Example: Original list of tasks using `list` command:
 ------------------------------------
 ```
 Example of usage: <br>
-```
+```dtd
 mark 3
 ```
 Expected output: <br>
-```
+```dtd
 ------------------------------------
 :( marked the task as not done yet: [D][ ] eat cooked food (by: 3pm)
 ------------------------------------
 ``` 
 Updated list of tasks using `list` command:
-```
+```dtd
 ------------------------------------
 1. [E][X] attend lecture (from: 4pm, to: 6pm)
 2. [T][ ] cook food
@@ -193,7 +193,7 @@ The index of the task to mark should be derived from the output of the `list` co
 <br> and must be a positive integer.
 #### **_USAGE_**
 Example: Original list of tasks using `list` command:
-```
+```dtd
 ------------------------------------
 1. [E][X] attend lecture (from: 4pm, to: 6pm)
 2. [T][ ] cook food
@@ -202,11 +202,11 @@ Example: Original list of tasks using `list` command:
 ------------------------------------
 ```
 Example of usage: <br>
-```
+```dtd
 delete 2
 ```
 Expected output: <br>
-```
+```dtd
 ------------------------------------
 I have deleted: 
 [T][ ] cook food
@@ -214,7 +214,7 @@ Now you have 2 tasks in the list
 ------------------------------------
 ``` 
 Updated list of tasks using `list` command:
-```
+```dtd
 ------------------------------------
 1. [E][X] attend lecture (from: 4pm, to: 6pm)
 2. [D][ ] eat cooked food (by: 3pm)
@@ -233,7 +233,7 @@ The index of the task to mark should be derived from the output of the `list` co
 #### **_USAGE_**
 Example:
 Original list of tasks using `list` command:
-```
+```dtd
 ------------------------------------
 1. [T][ ] todo one
 2. [T][X] todo 2
@@ -245,11 +245,11 @@ Original list of tasks using `list` command:
 ------------------------------------
 ```
 Example of usage: <br>
-```
+```dtd
 find two
 ```
 Expected output: <br>
-```
+```dtd
 ------------------------------------
 Here are the matching tasks: 
 1. [D][X] deadline two (by: 10pm)
@@ -265,11 +265,11 @@ Here are the matching tasks:
 Exits the fido application
 #### **_USAGE_**
 Example of usage: <br>
-```
+```dtd
 bye
 ```
 Expected output: <br>
-```
+```dtd
 ------------------------------------
 Bye. Hope to see you again soon!
 ------------------------------------
@@ -292,18 +292,4 @@ If the file is corrupted, the current data file will be discarded and a new file
 ## Editing the data
 It is highly not recommended to edit the data file as wrongly editing the file will lead to file corruption </br>
 which will result in the user having to delete the file, losing all the data
-### `Keyword` - Describe action
 
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
-```
-expected output
-```
