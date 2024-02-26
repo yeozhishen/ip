@@ -19,6 +19,7 @@ import java.util.List;
  * integrating functionality from parser, task manager, user interface and file manager
  */
 public class Fido {
+    private static final String RECREATING_FILE_STRING = ", attempting to deleting and recreating file to salvage";
     TaskManager fidoTaskManager;
     Parser inputParser;
     UserInterface userInterface;
@@ -38,9 +39,15 @@ public class Fido {
             String resultOfFileCheck = fileManager.ensureFileExists();
             loadTasksFromFile();
             userInterface.printMessage(resultOfFileCheck);
-        } catch (FidoException e) {
-            userInterface.printMessage(e.getMessage());
-            Exit();
+        } catch (Exception e) {
+            try {
+                userInterface.printMessage(e.getMessage() + RECREATING_FILE_STRING);
+                String recreationMessage = fileManager.recreateFile();
+                userInterface.printMessage(recreationMessage);
+            } catch (Exception e2) {
+                userInterface.printMessage(e.getMessage());
+                Exit();
+            }
         }
         userInterface.printGreetingMessage();
     }
@@ -204,10 +211,14 @@ public class Fido {
      * @throws FidoException if there are issues with the file
      */
     private void loadTasksFromFile() throws FidoException {
-        String taskFileContents = fileManager.readFile();
-        List<Task> taskList = Formatter.convertToTaskListFromFileFormat(taskFileContents);
-        for (Task task : taskList) {
-            fidoTaskManager.addTask(task);
+        try {
+            String taskFileContents = fileManager.readFile();
+            List<Task> taskList = Formatter.convertToTaskListFromFileFormat(taskFileContents);
+            for (Task task : taskList) {
+                fidoTaskManager.addTask(task);
+            }
+        } catch (Exception e) {
+            throw new FidoException(ErrorMessages.FILE_LOAD_ERROR.string);
         }
     }
 }
