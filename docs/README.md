@@ -1,4 +1,5 @@
-# User Guide
+
+# Fido User Guide
 Fido is a CLI tasks tracking application designed for people to keep track of their upcoming
 todos, events and deadlines. For experienced CLI users, they can enter their
 tasks faster compared to GUI applications
