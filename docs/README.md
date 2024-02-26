@@ -14,7 +14,8 @@ tasks faster compared to GUI applications
   * [delete](#7-delete-a-task-delete)
   * [find](#8-find-tasks-find-)
   * [bye](#9-exit-the-program-bye)
-* Saving the data
+* [Saving the data](#saving-the-data)
+* [Editing the data](#editing-the-data)
 
 ## Quick Start
 * Ensure you have Java 11 or above installed in your Computer.
