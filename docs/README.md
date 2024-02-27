@@ -283,7 +283,9 @@ Here are the matching tasks:
 
 ### 9. Exit the program: bye
 #### **_SYNOPSIS_**
-    bye
+```dtd
+bye
+```
 #### **_DESCRIPTION_**
 Exits the fido application
 #### **_USAGE_**
