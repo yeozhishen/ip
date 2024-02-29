@@ -315,7 +315,7 @@ directory that the `fido.jar` file is in.
 If the file is corrupted, the current data file will be discarded and a new file will be created
 
 ## Editing the data
-It is highly not recommended to edit the data file as wrongly editing the file will lead to file corruption </br>
+It is highly not recommended to edit the data file as wrongly editing the file will lead to file corruption <br>
 which will result in the user having to delete the file, losing all the data
 
 ## Known issues
