@@ -24,7 +24,7 @@ tasks faster compared to GUI applications
 * Open a command terminal, create a new folder to put the jar file inside,<br>
   change directory to the created new folder using `cd` or `dir` and use <br>
   `java -jar fido.jar` to run the application
-* Refer to the features below fo details of each command
+* Refer to the features below for details of each command
 ## Features
 
 ### 1. Listing all the tasks: list 
