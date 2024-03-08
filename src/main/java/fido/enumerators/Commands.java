@@ -1,5 +1,5 @@
 package fido.enumerators;
-/*
+/**
  * Represents the commands that Fido can understand
  * with the string representation of the command
  */

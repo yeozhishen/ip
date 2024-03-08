@@ -4,7 +4,7 @@ import fido.enumerators.ErrorMessages;
 import fido.enumerators.ParserRegex;
 import java.util.Scanner;
 import java.util.Arrays;
-/*
+/**
  * Obtains and parses user input from the command line and checks if the inputs are valid
  */
 public class Parser {
@@ -20,7 +20,7 @@ public class Parser {
         inputCommand = null;
         inputCommandArguments = null;
     }
-    /*
+    /**
      * Collects user input from the command line and splits it into the command (inputCommand)
      * and its arguments (inputCommandArguments)
      * @throws FidoException if there is no input
@@ -46,7 +46,7 @@ public class Parser {
     public String getUserInputCommand() {
         return inputCommand;
     }
-    /*
+    /**
      * Checks if the user input is a valid todo
      * @return boolean true if the user input is a valid todo, false otherwise
      */
@@ -57,7 +57,7 @@ public class Parser {
         }
         return inputCommandArguments.length >= 1;
     }
-    /*
+    /**
      * Checks if the user input is a valid deadline
      * @return boolean true if the user input is a valid deadline, false otherwise
      */
@@ -70,7 +70,7 @@ public class Parser {
         return byKeywordIndex != DOES_NOT_EXIST
                 && !atEndsOfCommandArgumentList(byKeywordIndex);
     }
-    /*
+    /**
      * Checks if the user input is a valid event
      * @return boolean true if the user input is a valid event, false otherwise
      */
@@ -86,7 +86,7 @@ public class Parser {
                 && !atEndsOfCommandArgumentList(toKeywordIndex)
                 && !consecutiveInArgumentList(fromKeywordIndex, toKeywordIndex);
     }
-    /*
+    /**
      * checks if the keywords in the keywordList are the only keywords in the inputCommandArguments
      * @param ParserRegex[] keywordList the list of keywords to check for
      * @return boolean true if the keywords in the keywordList are the 
@@ -127,7 +127,7 @@ public class Parser {
         }
         return DOES_NOT_EXIST;
     }
-    /*
+    /**
      * Gets the string after a keyword in the inputCommandArguments unitl the next keyword is found
      * @param ParserRegex keyword the keyword whose index we want to start obtaining the string from
      * @return String the string after the keyword until a next keyword is found
@@ -144,7 +144,7 @@ public class Parser {
         }
         return string.toString().trim();
     }
-    /*
+    /**
      * Gets the task description of a task from the inputCommandArguments
      * @return String the description of the task
      */
@@ -159,7 +159,7 @@ public class Parser {
         }
         return string.toString().trim();
     }
-    /*
+    /**
      * Gets the keyword that we want to find from the inputCommandArguments
      * when using the find command
      * @return String the keyword that we want to search for
@@ -179,7 +179,7 @@ public class Parser {
     private boolean isValidFind() {
         return inputCommandArguments != null && inputCommandArguments.length != 0;
     }
-    /*
+    /**
      * Gets the index of the task that we want to mark as done from the user's mark/unmark command
      * @return int the index of the task that we want to mark as done
      * @throws FidoException if the input is invalid, when there are no arguments or more than 1 argument

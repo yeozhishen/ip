@@ -21,7 +21,7 @@ public class TaskManager {
     public Task getTask(int stdoutTaskIndex) {
         return taskList.get(stdoutTaskIndex - 1);
     }
-    /*
+    /**
      * Returns a string representation of the current task list in memory
      * @return String representation of the task list
      */
@@ -38,7 +38,7 @@ public class TaskManager {
         }
         return listOfTasks.toString();
     }
-    /*
+    /**
      * Returns a string representation of the tasks in memory that contains the keyword
      * @param String keyword the keyword to search for in the task list
      * @return String representation of the task list
@@ -60,7 +60,7 @@ public class TaskManager {
         }
         return LIST_MATCHING_TASKS_STRING + listOfTasks.toString();
     }
-    /*
+    /**
      * Marks a task as done in the task list in memory
      * @param int stdoutTaskIndex the index of the task to mark as done based on what the user sees
      * in the terminal, which is 1-indexed
@@ -75,7 +75,7 @@ public class TaskManager {
         taskToMark.setDone();
         return TASK_DONE_STRING + taskToMark.toString();
     }
-    /*
+    /**
      * Marks a task as not done in the task list in memory
      * @param int stdoutTaskIndex the index of the task to mark as not done based on what the user sees
      * in the terminal, which is 1-indexed
@@ -96,7 +96,7 @@ public class TaskManager {
         }
         return false;
     }
-    /*
+    /**
      * Deletes a task from the task list in memory
      * @param int stdoutTaskIndex the index of the task to delete based on what the user sees
      * in the terminal, which is 1-indexed
@@ -112,7 +112,7 @@ public class TaskManager {
         numTasks--;
         return TASK_DELETED_STRING + taskToDelete.toString() + "\n" + getTasksInListString();
     }
-    /*
+    /**
      * Adds a task to the task list in memory
      * @param Task task the task to add to the task list
      * @return String the string representation of the task that was added 
