@@ -24,7 +24,7 @@ public class Fido {
     Parser inputParser;
     UserInterface userInterface;
     FileManager fileManager;
-    /*
+    /**
      * Constructor for Fido
      * Initializes the task manager, parser, user interface and file manager
      * and loads tasks from the file/creates the file if it does not exist
@@ -52,7 +52,7 @@ public class Fido {
         }
         userInterface.printGreetingMessage();
     }
-    /*
+    /**
      * Main method that runs the Fido program
      * continuously collects user input, processes the input and prints the output
      */
@@ -68,7 +68,7 @@ public class Fido {
             }
         }
     }
-    /*
+    /**
      * Processes the user input command and returns the output message
      * @param String command the user input command
      * @return String the output message of the command executed
@@ -103,7 +103,7 @@ public class Fido {
         userInterface.printExitMessage();
         System.exit(0);
     }
-    /*
+    /**
      * Adds a todo to the task list
      * @return String the string representation of the todo that was added
      * @throws FidoException if the todo is invalid
@@ -117,7 +117,7 @@ public class Fido {
         fileManager.save(todo);
         return fidoTaskManager.addTask(todo);
     }
-    /*
+    /**
      * Adds a deadline to the task list
      * @return String the string representation of the deadline that was added
      * @throws FidoException if the deadline is invalid
@@ -132,7 +132,7 @@ public class Fido {
         fileManager.save(deadline);
         return fidoTaskManager.addTask(deadline);
     }
-    /*
+    /**
      * Adds an event to the task list
      * @return String the string representation of the event that was added
      * @throws FidoException if the event is invalid
@@ -148,7 +148,7 @@ public class Fido {
         fileManager.save(event);
         return fidoTaskManager.addTask(event);
     }
-    /*
+    /**
      * Marks a task as done in the task list
      * @return String the string representation of the task that was marked as done
      * @throws FidoException if the index is out of range
@@ -165,7 +165,7 @@ public class Fido {
             throw new FidoException(ErrorMessages.INDEX_OUT_OF_BOUNDS.string);
         }
     }
-    /*
+    /**
      * Marks a task as not done in the task list
      * @return String the string representation of the task that was marked as not done
      * @throws FidoException if the index is out of range
@@ -182,7 +182,7 @@ public class Fido {
             throw new FidoException(ErrorMessages.INDEX_OUT_OF_BOUNDS.string);
         }
     }
-    /*
+    /**
      * Deletes a task from the task list
      * @return String the string representation of the task that was deleted
      * @throws FidoException if the index is out of range
@@ -198,7 +198,7 @@ public class Fido {
             throw new FidoException(ErrorMessages.INDEX_OUT_OF_BOUNDS.string);
         }
     }
-    /*
+    /**
      * Finds tasks using a keyword
      * @return String the string representation of the tasks that were found
      * @throws FidoException if the find command does not have a keyword supplied
@@ -207,7 +207,7 @@ public class Fido {
         String keyword = inputParser.getFindKeyword();
         return fidoTaskManager.findTasksUsingKeyword(keyword);
     }
-    /*
+    /**
      * Loads tasks from the file
      * @throws FidoException if there are issues with the file
      */

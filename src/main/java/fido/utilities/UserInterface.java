@@ -1,5 +1,5 @@
 package fido.utilities;
-/*
+/**
  * Manages the user interface
  * by printing messages to the command line
  */
@@ -12,7 +12,7 @@ public class UserInterface {
     public void printGreetingMessage() {
         printMessage(GREETING);
     }
-    /*
+    /**
      * Prints the message to the command line with decorative strings
      * @param String message the message to be printed
      */

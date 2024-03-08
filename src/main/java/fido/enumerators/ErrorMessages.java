@@ -1,5 +1,5 @@
 package fido.enumerators;
-/*
+/**
  * Represents the error messages that Fido can output
  * with the string representation of the error message
  * will be used with the FidoException exception

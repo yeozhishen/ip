@@ -1,5 +1,5 @@
 package fido.exceptions;
-/*
+/**
  * Represents an exception in Fido
  */
 public class FidoException extends Exception {
